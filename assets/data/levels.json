@@ -1,0 +1,72 @@
+[
+  {
+    "id": 1,
+    "title": "Level 1",
+    "difficulty": "Hard",
+    "quoteLines": [
+      "BODY CAN GO",
+      "LONGER WITHOUT",
+      "FOOD THAN",
+      "WITHOUT SLEEP"
+    ],
+    "clues": [
+      {
+        "clue": "Official approval of a process or standard",
+        "answer": "CERTIFICATION",
+        "isActive": true
+      },
+      {
+        "clue": "Act of forbidding something by law",
+        "answer": "PROHIBITION",
+        "isActive": false
+      }
+    ],
+    "usedLetters": ["A", "S", "D", "E", "R", "T", "U", "I", "O", "C", "N"],
+    "disabledLetters": ["W", "Y", "G"]
+  },
+  {
+    "id": 2,
+    "title": "Level 2",
+    "difficulty": "Easy",
+    "quoteLines": [
+      "DREAM BIG",
+      "STAY KIND"
+    ],
+    "clues": [
+      {
+        "clue": "Not small",
+        "answer": "BIG",
+        "isActive": true
+      },
+      {
+        "clue": "Not cruel",
+        "answer": "KIND",
+        "isActive": false
+      }
+    ],
+    "usedLetters": ["D", "R", "E", "A", "M", "B", "I", "G"],
+    "disabledLetters": ["Q", "X", "Z"]
+  },
+  {
+    "id": 3,
+    "title": "Level 3",
+    "difficulty": "Medium",
+    "quoteLines": [
+      "NEVER GIVE UP"
+    ],
+    "clues": [
+      {
+        "clue": "Opposite of always",
+        "answer": "NEVER",
+        "isActive": true
+      },
+      {
+        "clue": "To stop trying",
+        "answer": "GIVEUP",
+        "isActive": false
+      }
+    ],
+    "usedLetters": ["N", "E", "V", "R", "G", "I", "U", "P"],
+    "disabledLetters": ["A", "S", "T"]
+  }
+]
