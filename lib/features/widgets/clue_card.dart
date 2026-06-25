@@ -6,6 +6,7 @@ class ClueCard extends StatelessWidget {
   final Map<int, String> userGuesses;
   final int? selectedNumber;
   final Function(int) onNumberSelected;
+  final Map<String, int> cipher;
 
   const ClueCard({
     super.key,
@@ -13,10 +14,11 @@ class ClueCard extends StatelessWidget {
     required this.userGuesses,
     required this.selectedNumber,
     required this.onNumberSelected,
+    required this.cipher,
   });
 
   int _numberFromLetter(String letter) {
-    return letter.toUpperCase().codeUnitAt(0) - 64;
+    return cipher[letter.toUpperCase()] ?? -1;
   }
 
   @override

@@ -5,6 +5,7 @@ import 'package:project/features/models/ui_level.dart';
 import 'package:project/features/widgets/clue_card.dart';
 import 'package:project/features/widgets/game_keyboard.dart';
 import 'package:project/features/widgets/puzzle_word_view.dart';
+import 'package:project/features/game/controllers/game_controller.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -15,39 +16,23 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   late Future<List<UiLevel>> _levelsFuture;
-  final Map<int, String> _userGuesses = {};
-  int? _selectedNumber;
+  final GameController _gameController = GameController();
 
   @override
   void initState() {
     super.initState();
-    _levelsFuture = LevelRepository().loadLevels();
-  }
-
-  void _onNumberSelected(int number) {
-    setState(() {
-      _selectedNumber = number;
+    _levelsFuture = LevelRepository().loadLevels().then((levels) {
+      if (levels.isNotEmpty) {
+        _gameController.startLevel(levels.first);
+      }
+      return levels;
     });
   }
 
-  void _onKeyTap(String letter) {
-    if (_selectedNumber != null) {
-      setState(() {
-        _userGuesses[_selectedNumber!] = letter;
-      });
-    }
-  }
-
-  Set<String> _getUsedLetters() {
-    return _userGuesses.values.toSet();
-  }
-
-  void _onDelete() {
-    if (_selectedNumber != null) {
-      setState(() {
-        _userGuesses.remove(_selectedNumber!);
-      });
-    }
+  @override
+  void dispose() {
+    _gameController.dispose();
+    super.dispose();
   }
 
   @override
@@ -84,21 +69,26 @@ class _GameScreenState extends State<GameScreen> {
 
         final level = levels.first;
 
-        return Scaffold(
-          backgroundColor: const Color(0xff45b7f5),
-          body: SafeArea(
-            child: Column(
-              children: [
-                _buildTopHeader(level.title),
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 14),
-                    child: _buildPhoneFrame(context, level),
-                  ),
+        return ListenableBuilder(
+          listenable: _gameController,
+          builder: (context, _) {
+            return Scaffold(
+              backgroundColor: const Color(0xff45b7f5),
+              body: SafeArea(
+                child: Column(
+                  children: [
+                    _buildTopHeader(level.title),
+                    Expanded(
+                      child: SingleChildScrollView(
+                        padding: const EdgeInsets.fromLTRB(16, 8, 16, 14),
+                        child: _buildPhoneFrame(context, level),
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
-          ),
+              ),
+            );
+          },
         );
       },
     );
@@ -172,10 +162,10 @@ class _GameScreenState extends State<GameScreen> {
               children: [
                 _buildGameContent(level),
                 GameKeyboard(
-                  usedLetters: _getUsedLetters(),
+                  usedLetters: _gameController.userGuesses.values.toSet(),
                   disabledLetters: level.disabledLetters,
-                  onKeyTap: _onKeyTap,
-                  onDelete: _onDelete,
+                  onKeyTap: _gameController.enterLetter,
+                  onDelete: _gameController.deleteLetter,
                 ),
               ],
             ),
@@ -193,10 +183,17 @@ class _GameScreenState extends State<GameScreen> {
           _buildDifficultyRow(level),
           const SizedBox(height: 10),
 
-          const Text(
-            '✕✕✕',
+          Text(
+            _gameController.isWin 
+                ? 'YOU WIN!' 
+                : _gameController.isGameOver 
+                    ? 'GAME OVER'
+                    : List.generate(
+                        _gameController.maxMistakes,
+                        (index) => index < _gameController.mistakes ? '✕' : '◯',
+                      ).join(''),
             style: TextStyle(
-              color: Color(0xffe1e1e1),
+              color: _gameController.isWin || _gameController.isGameOver ? Colors.redAccent : const Color(0xffe1e1e1),
               fontSize: 30,
               fontWeight: FontWeight.bold,
               letterSpacing: 6,
@@ -217,9 +214,10 @@ class _GameScreenState extends State<GameScreen> {
 
           PuzzleWordView(
             lines: level.quoteLines,
-            userGuesses: _userGuesses,
-            selectedNumber: _selectedNumber,
-            onNumberSelected: _onNumberSelected,
+            userGuesses: _gameController.userGuesses,
+            selectedNumber: _gameController.selectedNumber,
+            onNumberSelected: _gameController.selectNumber,
+            cipher: _gameController.cipher,
           ),
 
           const SizedBox(height: 16),
@@ -233,9 +231,10 @@ class _GameScreenState extends State<GameScreen> {
               padding: const EdgeInsets.only(bottom: 12),
               child: ClueCard(
                 clue: clue,
-                userGuesses: _userGuesses,
-                selectedNumber: _selectedNumber,
-                onNumberSelected: _onNumberSelected,
+                userGuesses: _gameController.userGuesses,
+                selectedNumber: _gameController.selectedNumber,
+                onNumberSelected: _gameController.selectNumber,
+                cipher: _gameController.cipher,
               ),
             );
           }),
@@ -326,10 +325,13 @@ class _GameScreenState extends State<GameScreen> {
   Widget _buildBottomTools() {
     return Row(
       children: [
-        _toolButton(
-          icon: Icons.card_giftcard,
-          color: const Color(0xff18b768),
-          badge: '',
+        GestureDetector(
+          onTap: _gameController.reset,
+          child: _toolButton(
+            icon: Icons.refresh,
+            color: const Color(0xff18b768),
+            badge: '',
+          ),
         ),
         const Spacer(),
         _toolButton(
@@ -338,10 +340,13 @@ class _GameScreenState extends State<GameScreen> {
           badge: '1',
         ),
         const SizedBox(width: 8),
-        _toolButton(
-          icon: Icons.lightbulb,
-          color: const Color(0xff1597f5),
-          badge: '3',
+        GestureDetector(
+          onTap: _gameController.hint,
+          child: _toolButton(
+            icon: Icons.lightbulb,
+            color: const Color(0xff1597f5),
+            badge: '3',
+          ),
         ),
       ],
     );
