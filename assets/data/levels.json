@@ -2,71 +2,1568 @@
   {
     "id": 1,
     "title": "Level 1",
-    "difficulty": "Hard",
+    "difficulty": "Extremely easy",
     "quoteLines": [
-      "BODY CAN GO",
-      "LONGER WITHOUT",
-      "FOOD THAN",
-      "WITHOUT SLEEP"
+      "TIME IS",
+      "MONEY"
     ],
     "clues": [
       {
-        "clue": "Official approval of a process or standard",
-        "answer": "CERTIFICATION",
+        "clue": "A small pet?",
+        "answer": "MOUSE",
         "isActive": true
       },
       {
-        "clue": "Act of forbidding something by law",
-        "answer": "PROHIBITION",
+        "clue": "Opposite of night?",
+        "answer": "DAY",
+        "isActive": false
+      },
+      {
+        "clue": "Color of strawberries?",
+        "answer": "RED",
+        "isActive": false
+      },
+      {
+        "clue": "Worn on a foot?",
+        "answer": "SHOE",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of out?",
+        "answer": "IN",
+        "isActive": false
+      },
+      {
+        "clue": "Not false?",
+        "answer": "TRUE",
         "isActive": false
       }
     ],
-    "usedLetters": ["A", "S", "D", "E", "R", "T", "U", "I", "O", "C", "N"],
-    "disabledLetters": ["W", "Y", "G"]
+    "usedLetters": [
+      "A",
+      "D",
+      "E",
+      "H",
+      "I",
+      "M",
+      "N",
+      "O",
+      "R",
+      "S",
+      "T",
+      "U",
+      "Y"
+    ],
+    "disabledLetters": [
+      "B",
+      "C",
+      "F",
+      "G",
+      "J",
+      "K",
+      "L",
+      "P",
+      "Q",
+      "V",
+      "W",
+      "X",
+      "Z"
+    ]
   },
   {
     "id": 2,
     "title": "Level 2",
-    "difficulty": "Easy",
+    "difficulty": "Extremely easy",
     "quoteLines": [
-      "DREAM BIG",
-      "STAY KIND"
+      "NO PAIN",
+      "NO GAIN"
     ],
     "clues": [
       {
-        "clue": "Not small",
-        "answer": "BIG",
+        "clue": "Farm animal that gives milk?",
+        "answer": "COW",
         "isActive": true
       },
       {
-        "clue": "Not cruel",
-        "answer": "KIND",
+        "clue": "Piece of furniture for sleeping?",
+        "answer": "BED",
+        "isActive": false
+      },
+      {
+        "clue": "Farm animal with a curly tail?",
+        "answer": "PIG",
+        "isActive": false
+      },
+      {
+        "clue": "Used to write with ink?",
+        "answer": "PEN",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of young?",
+        "answer": "OLD",
+        "isActive": false
+      },
+      {
+        "clue": "Water falling from the sky?",
+        "answer": "RAIN",
         "isActive": false
       }
     ],
-    "usedLetters": ["D", "R", "E", "A", "M", "B", "I", "G"],
-    "disabledLetters": ["Q", "X", "Z"]
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "G",
+      "I",
+      "L",
+      "N",
+      "O",
+      "P",
+      "R",
+      "W"
+    ],
+    "disabledLetters": [
+      "F",
+      "H",
+      "J",
+      "K",
+      "M",
+      "Q",
+      "S",
+      "T",
+      "U",
+      "V",
+      "X",
+      "Y",
+      "Z"
+    ]
   },
   {
     "id": 3,
     "title": "Level 3",
-    "difficulty": "Medium",
+    "difficulty": "Extremely easy",
     "quoteLines": [
-      "NEVER GIVE UP"
+      "EASY COME",
+      "EASY GO"
     ],
     "clues": [
       {
-        "clue": "Opposite of always",
-        "answer": "NEVER",
+        "clue": "Plural form of mouse?",
+        "answer": "MICE",
         "isActive": true
       },
       {
-        "clue": "To stop trying",
-        "answer": "GIVEUP",
+        "clue": "Color of a lemon?",
+        "answer": "YELLOW",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of slow?",
+        "answer": "FAST",
+        "isActive": false
+      },
+      {
+        "clue": "Sweet baked dessert?",
+        "answer": "CAKE",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of bad?",
+        "answer": "GOOD",
+        "isActive": false
+      },
+      {
+        "clue": "A young dog?",
+        "answer": "PUPPY",
         "isActive": false
       }
     ],
-    "usedLetters": ["N", "E", "V", "R", "G", "I", "U", "P"],
-    "disabledLetters": ["A", "S", "T"]
+    "usedLetters": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "I",
+      "K",
+      "L",
+      "M",
+      "O",
+      "P",
+      "S",
+      "T",
+      "U",
+      "W",
+      "Y"
+    ],
+    "disabledLetters": [
+      "B",
+      "H",
+      "J",
+      "N",
+      "Q",
+      "R",
+      "V",
+      "X",
+      "Z"
+    ]
+  },
+  {
+    "id": 4,
+    "title": "Level 4",
+    "difficulty": "Extremely easy",
+    "quoteLines": [
+      "BOYS WILL",
+      "BE BOYS"
+    ],
+    "clues": [
+      {
+        "clue": "A male child?",
+        "answer": "BOY",
+        "isActive": true
+      },
+      {
+        "clue": "Coldest season of the year?",
+        "answer": "WINTER",
+        "isActive": false
+      },
+      {
+        "clue": "Something you read?",
+        "answer": "BOOK",
+        "isActive": false
+      },
+      {
+        "clue": "Used for walking?",
+        "answer": "LEGS",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of hot?",
+        "answer": "COLD",
+        "isActive": false
+      },
+      {
+        "clue": "Tool used to cut food?",
+        "answer": "KNIFE",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "I",
+      "K",
+      "L",
+      "N",
+      "O",
+      "R",
+      "S",
+      "T",
+      "W",
+      "Y"
+    ],
+    "disabledLetters": [
+      "A",
+      "H",
+      "J",
+      "M",
+      "P",
+      "Q",
+      "U",
+      "V",
+      "X",
+      "Z"
+    ]
+  },
+  {
+    "id": 5,
+    "title": "Level 5",
+    "difficulty": "Extremely easy",
+    "quoteLines": [
+      "KNOWLEDGE",
+      "IS POWER"
+    ],
+    "clues": [
+      {
+        "clue": "Color of the night sky?",
+        "answer": "BLACK",
+        "isActive": true
+      },
+      {
+        "clue": "Opposite of wrong?",
+        "answer": "RIGHT",
+        "isActive": false
+      },
+      {
+        "clue": "Material you write on?",
+        "answer": "PAPER",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of old?",
+        "answer": "NEW",
+        "isActive": false
+      },
+      {
+        "clue": "Animal that swims?",
+        "answer": "FISH",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of up?",
+        "answer": "DOWN",
+        "isActive": false
+      },
+      {
+        "clue": "Large area full of trees?",
+        "answer": "FOREST",
+        "isActive": false
+      },
+      {
+        "clue": "Small green jumping animal?",
+        "answer": "FROG",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "K",
+      "L",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "W"
+    ],
+    "disabledLetters": [
+      "J",
+      "M",
+      "Q",
+      "U",
+      "V",
+      "X",
+      "Y",
+      "Z"
+    ]
+  },
+  {
+    "id": 6,
+    "title": "Level 6",
+    "difficulty": "Easy",
+    "quoteLines": [
+      "BETTER LATE",
+      "THAN NEVER"
+    ],
+    "clues": [
+      {
+        "clue": "Person who drives a car?",
+        "answer": "DRIVER",
+        "isActive": true
+      },
+      {
+        "clue": "Room where you sleep?",
+        "answer": "BEDROOM",
+        "isActive": false
+      },
+      {
+        "clue": "Machine that lifts you between floors?",
+        "answer": "ELEVATOR",
+        "isActive": false
+      },
+      {
+        "clue": "Clothing worn around the neck?",
+        "answer": "SCARF",
+        "isActive": false
+      },
+      {
+        "clue": "Sandy shore by the ocean?",
+        "answer": "BEACH",
+        "isActive": false
+      },
+      {
+        "clue": "Piece of furniture for one person to sit on?",
+        "answer": "CHAIR",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of morning?",
+        "answer": "EVENING",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "L",
+      "M",
+      "N",
+      "O",
+      "R",
+      "S",
+      "T",
+      "V"
+    ],
+    "disabledLetters": [
+      "J",
+      "K",
+      "P",
+      "Q",
+      "U",
+      "W",
+      "X",
+      "Y",
+      "Z"
+    ]
+  },
+  {
+    "id": 7,
+    "title": "Level 7",
+    "difficulty": "Easy",
+    "quoteLines": [
+      "ACTIONS SPEAK",
+      "LOUDER",
+      "THAN WORDS"
+    ],
+    "clues": [
+      {
+        "clue": "Place to keep money safe?",
+        "answer": "BANK",
+        "isActive": true
+      },
+      {
+        "clue": "Device used to take photos?",
+        "answer": "CAMERA",
+        "isActive": false
+      },
+      {
+        "clue": "Person who flies an airplane?",
+        "answer": "PILOT",
+        "isActive": false
+      },
+      {
+        "clue": "Piece of cloth used to dry yourself?",
+        "answer": "TOWEL",
+        "isActive": false
+      },
+      {
+        "clue": "Device worn on the wrist to tell time?",
+        "answer": "WATCH",
+        "isActive": false
+      },
+      {
+        "clue": "Person who heals sick people?",
+        "answer": "DOCTOR",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of north?",
+        "answer": "SOUTH",
+        "isActive": false
+      },
+      {
+        "clue": "Sour yellow fruit?",
+        "answer": "LEMON",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "H",
+      "I",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "U",
+      "W"
+    ],
+    "disabledLetters": [
+      "F",
+      "G",
+      "J",
+      "Q",
+      "V",
+      "X",
+      "Y",
+      "Z"
+    ]
+  },
+  {
+    "id": 8,
+    "title": "Level 8",
+    "difficulty": "Easy",
+    "quoteLines": [
+      "IGNORANCE",
+      "IS BLISS"
+    ],
+    "clues": [
+      {
+        "clue": "Color of the clear sky?",
+        "answer": "BLUE",
+        "isActive": true
+      },
+      {
+        "clue": "Sweet sticky food made by bees?",
+        "answer": "HONEY",
+        "isActive": false
+      },
+      {
+        "clue": "Jewelry worn on a finger?",
+        "answer": "RING",
+        "isActive": false
+      },
+      {
+        "clue": "A small piece of rock?",
+        "answer": "STONE",
+        "isActive": false
+      },
+      {
+        "clue": "Green part of a tree?",
+        "answer": "LEAF",
+        "isActive": false
+      },
+      {
+        "clue": "Slow animal with a shell?",
+        "answer": "SNAIL",
+        "isActive": false
+      },
+      {
+        "clue": "Dark bitter hot drink?",
+        "answer": "COFFEE",
+        "isActive": false
+      },
+      {
+        "clue": "Having a lot of money?",
+        "answer": "RICH",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "L",
+      "N",
+      "O",
+      "R",
+      "S",
+      "T",
+      "U",
+      "Y"
+    ],
+    "disabledLetters": [
+      "D",
+      "J",
+      "K",
+      "M",
+      "P",
+      "Q",
+      "V",
+      "W",
+      "X",
+      "Z"
+    ]
+  },
+  {
+    "id": 9,
+    "title": "Level 9",
+    "difficulty": "Easy",
+    "quoteLines": [
+      "BEAUTY IS",
+      "SKIN DEEP"
+    ],
+    "clues": [
+      {
+        "clue": "Eight-legged animal that makes webs?",
+        "answer": "SPIDER",
+        "isActive": true
+      },
+      {
+        "clue": "Meal eaten in the morning?",
+        "answer": "BREAKFAST",
+        "isActive": false
+      },
+      {
+        "clue": "Musical instrument with strings?",
+        "answer": "GUITAR",
+        "isActive": false
+      },
+      {
+        "clue": "Very small social insect?",
+        "answer": "ANT",
+        "isActive": false
+      },
+      {
+        "clue": "Leader of a republic?",
+        "answer": "PRESIDENT",
+        "isActive": false
+      },
+      {
+        "clue": "Very tall yellow flower?",
+        "answer": "SUNFLOWER",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of cry?",
+        "answer": "LAUGH",
+        "isActive": false
+      },
+      {
+        "clue": "Public area with grass and trees?",
+        "answer": "PARK",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "K",
+      "L",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "U",
+      "W"
+    ],
+    "disabledLetters": [
+      "C",
+      "J",
+      "M",
+      "Q",
+      "V",
+      "X",
+      "Y",
+      "Z"
+    ]
+  },
+  {
+    "id": 10,
+    "title": "Level 10",
+    "difficulty": "Easy",
+    "quoteLines": [
+      "GOOD THINGS",
+      "TAKE TIME"
+    ],
+    "clues": [
+      {
+        "clue": "Worn on hands to keep them warm?",
+        "answer": "GLOVES",
+        "isActive": true
+      },
+      {
+        "clue": "Jumping animal from Australia?",
+        "answer": "KANGAROO",
+        "isActive": false
+      },
+      {
+        "clue": "Ornamental headwear for a king?",
+        "answer": "CROWN",
+        "isActive": false
+      },
+      {
+        "clue": "Glass surface that reflects your image?",
+        "answer": "MIRROR",
+        "isActive": false
+      },
+      {
+        "clue": "House made of solid ice blocks?",
+        "answer": "IGLOO",
+        "isActive": false
+      },
+      {
+        "clue": "Opposite of bright?",
+        "answer": "DARK",
+        "isActive": false
+      },
+      {
+        "clue": "Place to wash your body standing up?",
+        "answer": "SHOWER",
+        "isActive": false
+      },
+      {
+        "clue": "Study of numbers and shapes?",
+        "answer": "MATH",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "G",
+      "H",
+      "I",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "R",
+      "S",
+      "T",
+      "V",
+      "W"
+    ],
+    "disabledLetters": [
+      "B",
+      "F",
+      "J",
+      "P",
+      "Q",
+      "U",
+      "X",
+      "Y",
+      "Z"
+    ]
+  },
+  {
+    "id": 11,
+    "title": "Level 11",
+    "difficulty": "Medium",
+    "quoteLines": [
+      "HONESTY IS",
+      "THE BEST",
+      "POLICY"
+    ],
+    "clues": [
+      {
+        "clue": "Sport played with a bat and ball?",
+        "answer": "BASEBALL",
+        "isActive": true
+      },
+      {
+        "clue": "Scientific study of matter and energy?",
+        "answer": "PHYSICS",
+        "isActive": false
+      },
+      {
+        "clue": "Doctor who cares for your teeth?",
+        "answer": "DENTIST",
+        "isActive": false
+      },
+      {
+        "clue": "Tropical storm with high winds?",
+        "answer": "CYCLONE",
+        "isActive": false
+      },
+      {
+        "clue": "Object that attracts iron?",
+        "answer": "MAGNET",
+        "isActive": false
+      },
+      {
+        "clue": "Earth's natural night satellite?",
+        "answer": "MOON",
+        "isActive": false
+      },
+      {
+        "clue": "Glass or plastic container for liquids?",
+        "answer": "BOTTLE",
+        "isActive": false
+      },
+      {
+        "clue": "Joint in the middle of the leg?",
+        "answer": "KNEE",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "G",
+      "H",
+      "I",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "S",
+      "T",
+      "Y"
+    ],
+    "disabledLetters": [
+      "F",
+      "J",
+      "Q",
+      "R",
+      "U",
+      "V",
+      "W",
+      "X",
+      "Z"
+    ]
+  },
+  {
+    "id": 12,
+    "title": "Level 12",
+    "difficulty": "Medium",
+    "quoteLines": [
+      "KNOWLEDGE SPEAKS",
+      "BUT WISDOM",
+      "LISTENS"
+    ],
+    "clues": [
+      {
+        "clue": "Electronic device with a screen?",
+        "answer": "COMPUTER",
+        "isActive": true
+      },
+      {
+        "clue": "Scientific study of living organisms?",
+        "answer": "BIOLOGY",
+        "isActive": false
+      },
+      {
+        "clue": "Gas we breathe to stay alive?",
+        "answer": "OXYGEN",
+        "isActive": false
+      },
+      {
+        "clue": "Place where you pay to eat meals?",
+        "answer": "RESTAURANT",
+        "isActive": false
+      },
+      {
+        "clue": "Software used to view websites?",
+        "answer": "BROWSER",
+        "isActive": false
+      },
+      {
+        "clue": "Board with buttons used for typing?",
+        "answer": "KEYBOARD",
+        "isActive": false
+      },
+      {
+        "clue": "Protective hard hat?",
+        "answer": "HELMET",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "G",
+      "H",
+      "I",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "U",
+      "W",
+      "X",
+      "Y"
+    ],
+    "disabledLetters": [
+      "F",
+      "J",
+      "Q",
+      "V",
+      "Z"
+    ]
+  },
+  {
+    "id": 13,
+    "title": "Level 13",
+    "difficulty": "Medium",
+    "quoteLines": [
+      "CURIOSITY",
+      "KILLED",
+      "THE CAT"
+    ],
+    "clues": [
+      {
+        "clue": "Long distance running race?",
+        "answer": "MARATHON",
+        "isActive": true
+      },
+      {
+        "clue": "Emergency medical vehicle?",
+        "answer": "AMBULANCE",
+        "isActive": false
+      },
+      {
+        "clue": "Large floating mass of ice in the sea?",
+        "answer": "ICEBERG",
+        "isActive": false
+      },
+      {
+        "clue": "Mobile phone with internet access?",
+        "answer": "SMARTPHONE",
+        "isActive": false
+      },
+      {
+        "clue": "Vehicle with two wheels and pedals?",
+        "answer": "BICYCLE",
+        "isActive": false
+      },
+      {
+        "clue": "Sound bouncing back from a surface?",
+        "answer": "ECHO",
+        "isActive": false
+      },
+      {
+        "clue": "Racket sport played with a shuttlecock?",
+        "answer": "BADMINTON",
+        "isActive": false
+      },
+      {
+        "clue": "Organ that filters blood in the body?",
+        "answer": "KIDNEY",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "G",
+      "H",
+      "I",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "U",
+      "Y"
+    ],
+    "disabledLetters": [
+      "F",
+      "J",
+      "Q",
+      "V",
+      "W",
+      "X",
+      "Z"
+    ]
+  },
+  {
+    "id": 14,
+    "title": "Level 14",
+    "difficulty": "Medium",
+    "quoteLines": [
+      "A PICTURE",
+      "IS WORTH",
+      "A THOUSAND",
+      "WORDS"
+    ],
+    "clues": [
+      {
+        "clue": "Severe storm with strong winds and snow?",
+        "answer": "BLIZZARD",
+        "isActive": true
+      },
+      {
+        "clue": "Machine that puts text on paper?",
+        "answer": "PRINTER",
+        "isActive": false
+      },
+      {
+        "clue": "Instrument for looking at distant stars?",
+        "answer": "TELESCOPE",
+        "isActive": false
+      },
+      {
+        "clue": "Sport of riding a bicycle?",
+        "answer": "CYCLING",
+        "isActive": false
+      },
+      {
+        "clue": "Doctor who performs medical operations?",
+        "answer": "SURGEON",
+        "isActive": false
+      },
+      {
+        "clue": "Pain in your head?",
+        "answer": "HEADACHE",
+        "isActive": false
+      },
+      {
+        "clue": "Warm knitted piece of clothing?",
+        "answer": "SWEATER",
+        "isActive": false
+      },
+      {
+        "clue": "Very dry and sandy area of land?",
+        "answer": "DESERT",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "G",
+      "H",
+      "I",
+      "L",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "U",
+      "W",
+      "Y",
+      "Z"
+    ],
+    "disabledLetters": [
+      "F",
+      "J",
+      "K",
+      "M",
+      "Q",
+      "V",
+      "X"
+    ]
+  },
+  {
+    "id": 15,
+    "title": "Level 15",
+    "difficulty": "Medium",
+    "quoteLines": [
+      "LAUGHTER IS",
+      "THE BEST",
+      "MEDICINE"
+    ],
+    "clues": [
+      {
+        "clue": "Force that pulls objects to the ground?",
+        "answer": "GRAVITY",
+        "isActive": true
+      },
+      {
+        "clue": "Sudden violent shaking of the ground?",
+        "answer": "EARTHQUAKE",
+        "isActive": false
+      },
+      {
+        "clue": "Internal framework of bones?",
+        "answer": "SKELETON",
+        "isActive": false
+      },
+      {
+        "clue": "Layer of gases surrounding a planet?",
+        "answer": "ATMOSPHERE",
+        "isActive": false
+      },
+      {
+        "clue": "Medical injection to prevent disease?",
+        "answer": "VACCINE",
+        "isActive": false
+      },
+      {
+        "clue": "Long-handled brush used for sweeping?",
+        "answer": "BROOM",
+        "isActive": false
+      },
+      {
+        "clue": "Device worn over ears to hear audio?",
+        "answer": "HEADPHONES",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "G",
+      "H",
+      "I",
+      "K",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "Q",
+      "R",
+      "S",
+      "T",
+      "U",
+      "V",
+      "Y"
+    ],
+    "disabledLetters": [
+      "F",
+      "J",
+      "W",
+      "X",
+      "Z"
+    ]
+  },
+  {
+    "id": 16,
+    "title": "Level 16",
+    "difficulty": "Hard",
+    "quoteLines": [
+      "TO BE OR",
+      "NOT TO BE"
+    ],
+    "clues": [
+      {
+        "clue": "Person who starts their own business?",
+        "answer": "ENTREPRENEUR",
+        "isActive": true
+      },
+      {
+        "clue": "Money required to be paid to the government?",
+        "answer": "TAXES",
+        "isActive": false
+      },
+      {
+        "clue": "Written and legally binding agreement?",
+        "answer": "CONTRACT",
+        "isActive": false
+      },
+      {
+        "clue": "Period of temporary economic decline?",
+        "answer": "RECESSION",
+        "isActive": false
+      },
+      {
+        "clue": "Money that is owed or due?",
+        "answer": "DEBT",
+        "isActive": false
+      },
+      {
+        "clue": "Shares in the ownership of a company?",
+        "answer": "STOCK",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "I",
+      "K",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "U",
+      "X"
+    ],
+    "disabledLetters": [
+      "F",
+      "G",
+      "H",
+      "J",
+      "L",
+      "M",
+      "Q",
+      "V",
+      "W",
+      "Y",
+      "Z"
+    ]
+  },
+  {
+    "id": 17,
+    "title": "Level 17",
+    "difficulty": "Hard",
+    "quoteLines": [
+      "THE PEN IS",
+      "MIGHTIER",
+      "THAN THE SWORD"
+    ],
+    "clues": [
+      {
+        "clue": "Official right granted to an inventor?",
+        "answer": "PATENT",
+        "isActive": true
+      },
+      {
+        "clue": "Action of coming to live permanently in a foreign country?",
+        "answer": "IMMIGRATION",
+        "isActive": false
+      },
+      {
+        "clue": "Mental disorder characterized by persistent sadness?",
+        "answer": "DEPRESSION",
+        "isActive": false
+      },
+      {
+        "clue": "Study of past human events?",
+        "answer": "HISTORY",
+        "isActive": false
+      },
+      {
+        "clue": "System of making and trading wealth?",
+        "answer": "ECONOMY",
+        "isActive": false
+      },
+      {
+        "clue": "Formally concluded agreement between countries?",
+        "answer": "TREATY",
+        "isActive": false
+      },
+      {
+        "clue": "Wealth in the form of money or assets?",
+        "answer": "CAPITAL",
+        "isActive": false
+      },
+      {
+        "clue": "Fixed regular payment for work done?",
+        "answer": "WAGE",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "G",
+      "H",
+      "I",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "W",
+      "Y"
+    ],
+    "disabledLetters": [
+      "B",
+      "F",
+      "J",
+      "K",
+      "Q",
+      "U",
+      "V",
+      "X",
+      "Z"
+    ]
+  },
+  {
+    "id": 18,
+    "title": "Level 18",
+    "difficulty": "Hard",
+    "quoteLines": [
+      "ROME WAS",
+      "NOT BUILT",
+      "IN A DAY"
+    ],
+    "clues": [
+      {
+        "clue": "Partial or total loss of memory?",
+        "answer": "AMNESIA",
+        "isActive": true
+      },
+      {
+        "clue": "Action of leading a group of people?",
+        "answer": "LEADERSHIP",
+        "isActive": false
+      },
+      {
+        "clue": "Study of development and functioning of human society?",
+        "answer": "SOCIOLOGY",
+        "isActive": false
+      },
+      {
+        "clue": "General increase in prices and fall in purchasing power?",
+        "answer": "INFLATION",
+        "isActive": false
+      },
+      {
+        "clue": "Exclusive control of the supply or trade in a commodity?",
+        "answer": "MONOPOLY",
+        "isActive": false
+      },
+      {
+        "clue": "Abundance of valuable possessions or money?",
+        "answer": "WEALTH",
+        "isActive": false
+      },
+      {
+        "clue": "Estimate of income and expenditure for a set period?",
+        "answer": "BUDGET",
+        "isActive": false
+      },
+      {
+        "clue": "Person who purchases goods and services for personal use?",
+        "answer": "CONSUMER",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "F",
+      "G",
+      "H",
+      "I",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "U",
+      "W",
+      "Y"
+    ],
+    "disabledLetters": [
+      "J",
+      "K",
+      "Q",
+      "V",
+      "X",
+      "Z"
+    ]
+  },
+  {
+    "id": 19,
+    "title": "Level 19",
+    "difficulty": "Hard",
+    "quoteLines": [
+      "WHERE THERE",
+      "IS A WILL",
+      "THERE IS",
+      "A WAY"
+    ],
+    "clues": [
+      {
+        "clue": "Forecast of what will happen in the future?",
+        "answer": "PREDICTION",
+        "isActive": true
+      },
+      {
+        "clue": "Scientific study of the human mind and its functions?",
+        "answer": "PSYCHOLOGY",
+        "isActive": false
+      },
+      {
+        "clue": "Withdraw from commercial relations as a protest?",
+        "answer": "BOYCOTT",
+        "isActive": false
+      },
+      {
+        "clue": "Practice or arrangement providing protection against financial loss?",
+        "answer": "INSURANCE",
+        "isActive": false
+      },
+      {
+        "clue": "Exclusive legal right to reproduce and sell an original work?",
+        "answer": "COPYRIGHT",
+        "isActive": false
+      },
+      {
+        "clue": "Fact or condition of being addicted to a particular substance?",
+        "answer": "ADDICTION",
+        "isActive": false
+      },
+      {
+        "clue": "Large building where raw materials or manufactured goods are stored?",
+        "answer": "WAREHOUSE",
+        "isActive": false
+      },
+      {
+        "clue": "System of government by the whole population?",
+        "answer": "DEMOCRACY",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "B",
+      "C",
+      "D",
+      "E",
+      "G",
+      "H",
+      "I",
+      "L",
+      "M",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "U",
+      "W",
+      "Y"
+    ],
+    "disabledLetters": [
+      "F",
+      "J",
+      "K",
+      "Q",
+      "V",
+      "X",
+      "Z"
+    ]
+  },
+  {
+    "id": 20,
+    "title": "Level 20",
+    "difficulty": "Hard",
+    "quoteLines": [
+      "EVERY CLOUD",
+      "HAS A",
+      "SILVER LINING"
+    ],
+    "clues": [
+      {
+        "clue": "Sudden event that causes great damage or loss of life?",
+        "answer": "DISASTER",
+        "isActive": true
+      },
+      {
+        "clue": "Voluntary giving of help to those in need?",
+        "answer": "CHARITY",
+        "isActive": false
+      },
+      {
+        "clue": "Educational talk to an audience?",
+        "answer": "LECTURE",
+        "isActive": false
+      },
+      {
+        "clue": "Action of traveling in or through an unfamiliar area?",
+        "answer": "EXPLORATION",
+        "isActive": false
+      },
+      {
+        "clue": "Person who watches at a show or game?",
+        "answer": "SPECTATOR",
+        "isActive": false
+      },
+      {
+        "clue": "Person who does not eat meat?",
+        "answer": "VEGETARIAN",
+        "isActive": false
+      },
+      {
+        "clue": "System of money in general use in a particular country?",
+        "answer": "CURRENCY",
+        "isActive": false
+      },
+      {
+        "clue": "State of being free from danger or threat?",
+        "answer": "SECURITY",
+        "isActive": false
+      }
+    ],
+    "usedLetters": [
+      "A",
+      "C",
+      "D",
+      "E",
+      "G",
+      "H",
+      "I",
+      "L",
+      "N",
+      "O",
+      "P",
+      "R",
+      "S",
+      "T",
+      "U",
+      "V",
+      "X",
+      "Y"
+    ],
+    "disabledLetters": [
+      "B",
+      "F",
+      "J",
+      "K",
+      "M",
+      "Q",
+      "W",
+      "Z"
+    ]
   }
 ]
