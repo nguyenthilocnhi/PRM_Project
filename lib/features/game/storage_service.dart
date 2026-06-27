@@ -4,6 +4,17 @@ import 'package:shared_preferences/shared_preferences.dart';
 class StorageService {
   static const String _keyCurrentLevel = 'current_level';
   static const String _keyPrefixProgress = 'progress_level_';
+  static const String _keyHints = 'hint_count';
+
+  Future<void> saveHints(int count) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_keyHints, count);
+  }
+
+  Future<int> loadHints() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_keyHints) ?? 3;
+  }
 
   // Save current level ID
   Future<void> saveCurrentLevel(int levelId) async {

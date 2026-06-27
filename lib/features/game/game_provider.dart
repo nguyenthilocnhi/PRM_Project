@@ -20,6 +20,7 @@ class GameProvider extends ChangeNotifier {
 
   bool _isLoading = true;
   bool _isLevelComplete = false;
+  int _hintCount = 3;
 
   List<Level> get allLevels => _allLevels;
   Level? get currentLevel => _currentLevel;
@@ -27,6 +28,7 @@ class GameProvider extends ChangeNotifier {
   Map<int, String> get userInputs => _userInputs;
   bool get isLoading => _isLoading;
   bool get isLevelComplete => _isLevelComplete;
+  int get hintCount => _hintCount;
 
   GameProvider() {
     _initGame();
@@ -44,6 +46,7 @@ class GameProvider extends ChangeNotifier {
       debugPrint('Error loading levels: $e');
     }
 
+    _hintCount = await _storageService.loadHints();
     final currentLevelId = await _storageService.loadCurrentLevel();
     await loadLevel(currentLevelId);
   }
@@ -110,6 +113,48 @@ class GameProvider extends ChangeNotifier {
     _storageService.saveProgress(_currentLevel!.id, _userInputs);
     _checkWinCondition();
     notifyListeners();
+  }
+
+  void useHint() {
+    if (_currentLevel == null || _isLevelComplete || _hintCount <= 0) return;
+
+    final emptyOrIncorrectNumbers = <int>[];
+
+    for (int c = 0; c < _currentLevel!.clues.length; c++) {
+      final clue = _currentLevel!.clues[c];
+      for (int l = 0; l < clue.answer.length; l++) {
+        final expectedLetter = clue.answer[l];
+        final number = _cipherMap[expectedLetter];
+        
+        if (number != null) {
+          final userLetter = _userInputs[number];
+          if (userLetter != expectedLetter) {
+            if (!emptyOrIncorrectNumbers.contains(number)) {
+              emptyOrIncorrectNumbers.add(number);
+            }
+          }
+        }
+      }
+    }
+
+    if (emptyOrIncorrectNumbers.isEmpty) return;
+
+    final random = Random();
+    final targetNumber = emptyOrIncorrectNumbers[random.nextInt(emptyOrIncorrectNumbers.length)];
+    
+    String targetLetter = '';
+    for (var entry in _cipherMap.entries) {
+      if (entry.value == targetNumber) {
+        targetLetter = entry.key;
+        break;
+      }
+    }
+
+    if (targetLetter.isNotEmpty) {
+      _hintCount--;
+      _storageService.saveHints(_hintCount);
+      inputLetter(targetNumber, targetLetter);
+    }
   }
 
   void _checkWinCondition() {

@@ -1,5 +1,7 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:confetti/confetti.dart';
 
 import 'package:project/features/game/game_provider.dart';
 import 'package:project/features/widgets/clue_card.dart';
@@ -16,6 +18,19 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   int? _selectedNumber;
   bool _isDialogShowing = false;
+  late ConfettiController _confettiController;
+
+  @override
+  void initState() {
+    super.initState();
+    _confettiController = ConfettiController(duration: const Duration(seconds: 3));
+  }
+
+  @override
+  void dispose() {
+    _confettiController.dispose();
+    super.dispose();
+  }
 
   void _onNumberSelected(int number) {
     setState(() {
@@ -62,20 +77,37 @@ class _GameScreenState extends State<GameScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (provider.isLevelComplete && !_isDialogShowing) {
         _isDialogShowing = true;
-        _showWinDialog(context, provider);
+        _confettiController.play();
+        Future.delayed(const Duration(seconds: 2), () {
+          if (!context.mounted) return;
+          _showWinDialog(context, provider);
+        });
       }
     });
 
     return Scaffold(
       backgroundColor: const Color(0xff45b7f5),
       body: SafeArea(
-        child: Column(
+        child: Stack(
           children: [
-            _buildTopHeader(level.title),
-            Expanded(
-              child: SingleChildScrollView(
-                padding: const EdgeInsets.fromLTRB(16, 8, 16, 14),
-                child: _buildPhoneFrame(context, provider),
+            Column(
+              children: [
+                _buildTopHeader(level.title),
+                Expanded(
+                  child: SingleChildScrollView(
+                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 14),
+                    child: _buildPhoneFrame(context, provider),
+                  ),
+                ),
+              ],
+            ),
+            Align(
+              alignment: Alignment.topCenter,
+              child: ConfettiWidget(
+                confettiController: _confettiController,
+                blastDirectionality: BlastDirectionality.explosive,
+                shouldLoop: false,
+                colors: const [Colors.green, Colors.blue, Colors.pink, Colors.orange, Colors.purple],
               ),
             ),
           ],
@@ -247,7 +279,7 @@ class _GameScreenState extends State<GameScreen> {
 
           const SizedBox(height: 6),
 
-          _buildBottomTools(),
+          _buildBottomTools(provider),
         ],
       ),
     );
@@ -328,7 +360,7 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Widget _buildBottomTools() {
+  Widget _buildBottomTools(GameProvider provider) {
     return Row(
       children: [
         _toolButton(
@@ -346,7 +378,10 @@ class _GameScreenState extends State<GameScreen> {
         _toolButton(
           icon: Icons.lightbulb,
           color: const Color(0xff1597f5),
-          badge: '3',
+          badge: provider.hintCount.toString(),
+          onTap: () {
+            provider.useHint();
+          },
         ),
       ],
     );
@@ -356,10 +391,13 @@ class _GameScreenState extends State<GameScreen> {
     required IconData icon,
     required Color color,
     required String badge,
+    VoidCallback? onTap,
   }) {
-    return Stack(
-      clipBehavior: Clip.none,
-      children: [
+    return GestureDetector(
+      onTap: onTap,
+      child: Stack(
+        clipBehavior: Clip.none,
+        children: [
         Container(
           width: 48,
           height: 44,
@@ -389,7 +427,8 @@ class _GameScreenState extends State<GameScreen> {
               ),
             ),
           ),
-      ],
+        ],
+      ),
     );
   }
 }
