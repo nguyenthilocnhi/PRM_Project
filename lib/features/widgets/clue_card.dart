@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import '../models/ui_level.dart';
+import '../models/clue.dart';
 
 class ClueCard extends StatelessWidget {
-  final UiClue clue;
+  final Clue clue;
   final Map<int, String> userGuesses;
+  final Map<String, int> cipherMap;
   final int? selectedNumber;
   final Function(int) onNumberSelected;
 
@@ -11,13 +12,10 @@ class ClueCard extends StatelessWidget {
     super.key,
     required this.clue,
     required this.userGuesses,
+    required this.cipherMap,
     required this.selectedNumber,
     required this.onNumberSelected,
   });
-
-  int _numberFromLetter(String letter) {
-    return letter.toUpperCase().codeUnitAt(0) - 64;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +32,7 @@ class ClueCard extends StatelessWidget {
         boxShadow: [
           if (clue.isActive)
             BoxShadow(
-              color: Colors.green.withOpacity(0.12),
+              color: Colors.green.withValues(alpha: 0.12),
               blurRadius: 8,
               offset: const Offset(0, 4),
             ),
@@ -58,7 +56,7 @@ class ClueCard extends StatelessWidget {
             runSpacing: 8,
             children: List.generate(clue.answer.length, (index) {
               final letter = clue.answer[index];
-              final number = _numberFromLetter(letter);
+              final number = cipherMap[letter] ?? 0;
 
               return GestureDetector(
                 onTap: () => onNumberSelected(number),
@@ -97,7 +95,7 @@ class _ClueLetterCell extends StatelessWidget {
             width: 24,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isSelected ? Colors.yellow.withOpacity(0.3) : Colors.transparent,
+              color: isSelected ? Colors.yellow.withValues(alpha: 0.3) : Colors.transparent,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(

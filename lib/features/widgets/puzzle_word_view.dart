@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 class PuzzleWordView extends StatelessWidget {
   final List<String> lines;
   final Map<int, String> userGuesses;
+  final Map<String, int> cipherMap;
   final int? selectedNumber;
   final Function(int) onNumberSelected;
 
@@ -10,14 +11,10 @@ class PuzzleWordView extends StatelessWidget {
     super.key,
     required this.lines,
     required this.userGuesses,
+    required this.cipherMap,
     required this.selectedNumber,
     required this.onNumberSelected,
   });
-
-  int _numberFromLetter(String letter) {
-    if (letter == ' ' || letter == '.' || letter == ',') return -1;
-    return letter.toUpperCase().codeUnitAt(0) - 64;
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,8 +31,8 @@ class PuzzleWordView extends StatelessWidget {
                 spacing: 5,
                 runSpacing: 5,
                 children: word.split('').map((letter) {
-                  final number = _numberFromLetter(letter);
-                  if (number == -1) {
+                  final number = cipherMap[letter];
+                  if (number == null) {
                     return Text(
                       letter,
                       style: const TextStyle(
@@ -83,7 +80,7 @@ class _PuzzleLetterCell extends StatelessWidget {
             width: 24,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isSelected ? Colors.yellow.withOpacity(0.3) : Colors.transparent,
+              color: isSelected ? Colors.yellow.withValues(alpha: 0.3) : Colors.transparent,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(

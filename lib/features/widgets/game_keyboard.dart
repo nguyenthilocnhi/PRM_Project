@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class GameKeyboard extends StatelessWidget {
   final Set<String> usedLetters;
-  final Set<String> disabledLetters;
+  final List<String> disabledLetters;
   final Function(String) onKeyTap;
   final VoidCallback onDelete;
 
@@ -80,7 +80,7 @@ class GameKeyboard extends StatelessWidget {
           borderRadius: BorderRadius.circular(6),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.18),
+              color: Colors.black.withValues(alpha: 0.18),
               blurRadius: 2,
               offset: const Offset(0, 2),
             ),
@@ -125,7 +125,7 @@ class _KeyboardKey extends StatelessWidget {
         borderRadius: BorderRadius.circular(6),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.18),
+            color: Colors.black.withValues(alpha: 0.18),
             blurRadius: 2,
             offset: const Offset(0, 2),
           ),
@@ -134,7 +134,8 @@ class _KeyboardKey extends StatelessWidget {
       child: Center(
         child: Text(
           letter,
-          style: const TextStyle(
+          style: TextStyle(
+            color: textColor,
             fontSize: 16,
             fontWeight: FontWeight.w800,
           ),

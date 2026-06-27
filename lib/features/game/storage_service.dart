@@ -1,0 +1,41 @@
+import 'dart:convert';
+import 'package:shared_preferences/shared_preferences.dart';
+
+class StorageService {
+  static const String _keyCurrentLevel = 'current_level';
+  static const String _keyPrefixProgress = 'progress_level_';
+
+  // Save current level ID
+  Future<void> saveCurrentLevel(int levelId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_keyCurrentLevel, levelId);
+  }
+
+  // Load current level ID (default to 1)
+  Future<int> loadCurrentLevel() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_keyCurrentLevel) ?? 1;
+  }
+
+  // Save progress for a specific level. 
+  Future<void> saveProgress(int levelId, Map<int, String> userInputs) async {
+    final prefs = await SharedPreferences.getInstance();
+    final stringMap = userInputs.map((k, v) => MapEntry(k.toString(), v));
+    await prefs.setString('$_keyPrefixProgress$levelId', jsonEncode(stringMap));
+  }
+
+  // Load progress for a specific level.
+  Future<Map<int, String>> loadProgress(int levelId) async {
+    final prefs = await SharedPreferences.getInstance();
+    final data = prefs.getString('$_keyPrefixProgress$levelId');
+    if (data != null) {
+      try {
+        final decoded = jsonDecode(data) as Map<String, dynamic>;
+        return decoded.map((key, value) => MapEntry(int.parse(key), value.toString()));
+      } catch (e) {
+        return {};
+      }
+    }
+    return {};
+  }
+}

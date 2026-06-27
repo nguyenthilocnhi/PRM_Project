@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-import 'package:project/features/game/data/level_repository.dart';
-import 'package:project/features/models/ui_level.dart';
+import 'package:project/features/game/game_provider.dart';
 import 'package:project/features/widgets/clue_card.dart';
 import 'package:project/features/widgets/game_keyboard.dart';
 import 'package:project/features/widgets/puzzle_word_view.dart';
@@ -14,15 +14,8 @@ class GameScreen extends StatefulWidget {
 }
 
 class _GameScreenState extends State<GameScreen> {
-  late Future<List<UiLevel>> _levelsFuture;
-  final Map<int, String> _userGuesses = {};
   int? _selectedNumber;
-
-  @override
-  void initState() {
-    super.initState();
-    _levelsFuture = LevelRepository().loadLevels();
-  }
+  bool _isDialogShowing = false;
 
   void _onNumberSelected(int number) {
     setState(() {
@@ -32,75 +25,83 @@ class _GameScreenState extends State<GameScreen> {
 
   void _onKeyTap(String letter) {
     if (_selectedNumber != null) {
-      setState(() {
-        _userGuesses[_selectedNumber!] = letter;
-      });
+      context.read<GameProvider>().inputLetter(_selectedNumber!, letter);
     }
-  }
-
-  Set<String> _getUsedLetters() {
-    return _userGuesses.values.toSet();
   }
 
   void _onDelete() {
     if (_selectedNumber != null) {
-      setState(() {
-        _userGuesses.remove(_selectedNumber!);
-      });
+      context.read<GameProvider>().deleteLetter(_selectedNumber!);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder<List<UiLevel>>(
-      future: _levelsFuture,
-      builder: (context, snapshot) {
-        if (snapshot.connectionState == ConnectionState.waiting) {
-          return const Scaffold(
-            backgroundColor: Color(0xff45b7f5),
-            body: Center(
-              child: CircularProgressIndicator(color: Colors.white),
+    final provider = context.watch<GameProvider>();
+
+    if (provider.isLoading) {
+      return const Scaffold(
+        backgroundColor: Color(0xff45b7f5),
+        body: Center(
+          child: CircularProgressIndicator(color: Colors.white),
+        ),
+      );
+    }
+
+    final level = provider.currentLevel;
+
+    if (level == null) {
+      return const Scaffold(
+        body: Center(
+          child: Text('No levels found'),
+        ),
+      );
+    }
+
+    // Auto check win
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (provider.isLevelComplete && !_isDialogShowing) {
+        _isDialogShowing = true;
+        _showWinDialog(context, provider);
+      }
+    });
+
+    return Scaffold(
+      backgroundColor: const Color(0xff45b7f5),
+      body: SafeArea(
+        child: Column(
+          children: [
+            _buildTopHeader(level.title),
+            Expanded(
+              child: SingleChildScrollView(
+                padding: const EdgeInsets.fromLTRB(16, 8, 16, 14),
+                child: _buildPhoneFrame(context, provider),
+              ),
             ),
-          );
-        }
+          ],
+        ),
+      ),
+    );
+  }
 
-        if (snapshot.hasError) {
-          return Scaffold(
-            body: Center(
-              child: Text('Error: ${snapshot.error}'),
-            ),
-          );
-        }
-
-        final levels = snapshot.data ?? [];
-
-        if (levels.isEmpty) {
-          return const Scaffold(
-            body: Center(
-              child: Text('No levels found'),
-            ),
-          );
-        }
-
-        final level = levels.first;
-
-        return Scaffold(
-          backgroundColor: const Color(0xff45b7f5),
-          body: SafeArea(
-            child: Column(
-              children: [
-                _buildTopHeader(level.title),
-                Expanded(
-                  child: SingleChildScrollView(
-                    padding: const EdgeInsets.fromLTRB(16, 8, 16, 14),
-                    child: _buildPhoneFrame(context, level),
-                  ),
-                ),
-              ],
-            ),
+  void _showWinDialog(BuildContext context, GameProvider provider) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Congratulations!'),
+        content: const Text('You completed the level!'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              _isDialogShowing = false;
+              provider.nextLevel();
+            },
+            child: const Text('Next Level'),
           ),
-        );
-      },
+        ],
+      ),
     );
   }
 
@@ -147,7 +148,8 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Widget _buildPhoneFrame(BuildContext context, UiLevel level) {
+  Widget _buildPhoneFrame(BuildContext context, GameProvider provider) {
+    final level = provider.currentLevel!;
     return Center(
       child: Container(
         constraints: const BoxConstraints(maxWidth: 420),
@@ -157,7 +159,7 @@ class _GameScreenState extends State<GameScreen> {
           borderRadius: BorderRadius.circular(34),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.25),
+              color: Colors.black.withValues(alpha: 0.25),
               blurRadius: 18,
               offset: const Offset(0, 8),
             ),
@@ -170,10 +172,10 @@ class _GameScreenState extends State<GameScreen> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                _buildGameContent(level),
+                _buildGameContent(provider),
                 GameKeyboard(
-                  usedLetters: _getUsedLetters(),
-                  disabledLetters: level.disabledLetters,
+                  usedLetters: provider.userInputs.values.toSet(),
+                  disabledLetters: List<String>.from(level.disabledLetters),
                   onKeyTap: _onKeyTap,
                   onDelete: _onDelete,
                 ),
@@ -185,12 +187,13 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Widget _buildGameContent(UiLevel level) {
+  Widget _buildGameContent(GameProvider provider) {
+    final level = provider.currentLevel!;
     return Padding(
       padding: const EdgeInsets.fromLTRB(14, 16, 14, 12),
       child: Column(
         children: [
-          _buildDifficultyRow(level),
+          _buildDifficultyRow(level.difficulty),
           const SizedBox(height: 10),
 
           const Text(
@@ -217,7 +220,8 @@ class _GameScreenState extends State<GameScreen> {
 
           PuzzleWordView(
             lines: level.quoteLines,
-            userGuesses: _userGuesses,
+            userGuesses: provider.userInputs,
+            cipherMap: provider.cipherMap,
             selectedNumber: _selectedNumber,
             onNumberSelected: _onNumberSelected,
           ),
@@ -233,7 +237,8 @@ class _GameScreenState extends State<GameScreen> {
               padding: const EdgeInsets.only(bottom: 12),
               child: ClueCard(
                 clue: clue,
-                userGuesses: _userGuesses,
+                userGuesses: provider.userInputs,
+                cipherMap: provider.cipherMap,
                 selectedNumber: _selectedNumber,
                 onNumberSelected: _onNumberSelected,
               ),
@@ -248,7 +253,7 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Widget _buildDifficultyRow(UiLevel level) {
+  Widget _buildDifficultyRow(String difficulty) {
     return Row(
       children: [
         Container(
@@ -272,7 +277,7 @@ class _GameScreenState extends State<GameScreen> {
         ),
         const SizedBox(width: 8),
         Text(
-          level.difficulty,
+          difficulty,
           style: const TextStyle(
             color: Color(0xff2d4b85),
             fontSize: 14,
