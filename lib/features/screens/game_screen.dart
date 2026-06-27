@@ -94,7 +94,7 @@ class _GameScreenState extends State<GameScreen> {
               children: [
                 _buildTopHeader(level.title),
                 Expanded(
-                  child: SingleChildScrollView(
+                  child: Padding(
                     padding: const EdgeInsets.fromLTRB(16, 8, 16, 14),
                     child: _buildPhoneFrame(context, provider),
                   ),
@@ -202,9 +202,12 @@ class _GameScreenState extends State<GameScreen> {
           child: Container(
             color: const Color(0xfffff8df),
             child: Column(
-              mainAxisSize: MainAxisSize.min,
               children: [
-                _buildGameContent(provider),
+                Expanded(
+                  child: SingleChildScrollView(
+                    child: _buildGameContent(provider),
+                  ),
+                ),
                 GameKeyboard(
                   usedLetters: provider.userInputs.values.toSet(),
                   disabledLetters: List<String>.from(level.disabledLetters),
