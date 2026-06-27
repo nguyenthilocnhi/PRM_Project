@@ -5,6 +5,17 @@ class StorageService {
   static const String _keyCurrentLevel = 'current_level';
   static const String _keyPrefixProgress = 'progress_level_';
   static const String _keyHints = 'hint_count';
+  static const String _keyMaxUnlockedLevel = 'max_unlocked_level';
+
+  Future<void> saveMaxUnlockedLevel(int levelId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_keyMaxUnlockedLevel, levelId);
+  }
+
+  Future<int> loadMaxUnlockedLevel() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_keyMaxUnlockedLevel) ?? 1;
+  }
 
   Future<void> saveHints(int count) async {
     final prefs = await SharedPreferences.getInstance();

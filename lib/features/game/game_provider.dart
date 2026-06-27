@@ -21,6 +21,7 @@ class GameProvider extends ChangeNotifier {
   bool _isLoading = true;
   bool _isLevelComplete = false;
   int _hintCount = 3;
+  int _maxUnlockedLevel = 1;
 
   List<Level> get allLevels => _allLevels;
   Level? get currentLevel => _currentLevel;
@@ -29,6 +30,7 @@ class GameProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   bool get isLevelComplete => _isLevelComplete;
   int get hintCount => _hintCount;
+  int get maxUnlockedLevel => _maxUnlockedLevel;
 
   GameProvider() {
     _initGame();
@@ -47,6 +49,7 @@ class GameProvider extends ChangeNotifier {
     }
 
     _hintCount = await _storageService.loadHints();
+    _maxUnlockedLevel = await _storageService.loadMaxUnlockedLevel();
     final currentLevelId = await _storageService.loadCurrentLevel();
     await loadLevel(currentLevelId);
   }
@@ -182,6 +185,12 @@ class GameProvider extends ChangeNotifier {
     }
 
     _isLevelComplete = isWin;
+    if (isWin) {
+      if (_currentLevel!.id >= _maxUnlockedLevel && _currentLevel!.id < _allLevels.length) {
+        _maxUnlockedLevel = _currentLevel!.id + 1;
+        _storageService.saveMaxUnlockedLevel(_maxUnlockedLevel);
+      }
+    }
   }
 
   Future<void> nextLevel() async {
