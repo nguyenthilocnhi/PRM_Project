@@ -1,9 +1,8 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:confetti/confetti.dart';
-
 import 'package:project/features/game/game_provider.dart';
+import 'package:project/features/screens/level_complete_screen.dart';
 import 'package:project/features/widgets/clue_card.dart';
 import 'package:project/features/widgets/game_keyboard.dart';
 import 'package:project/features/widgets/puzzle_word_view.dart';
@@ -19,17 +18,14 @@ class _GameScreenState extends State<GameScreen> {
   int? _selectedNumber;
   bool _isDialogShowing = false;
   bool _isGameOverDialogShowing = false;
-  late ConfettiController _confettiController;
 
   @override
   void initState() {
     super.initState();
-    _confettiController = ConfettiController(duration: const Duration(seconds: 3));
   }
 
   @override
   void dispose() {
-    _confettiController.dispose();
     super.dispose();
   }
 
@@ -78,10 +74,11 @@ class _GameScreenState extends State<GameScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (provider.isLevelComplete && !_isDialogShowing) {
         _isDialogShowing = true;
-        _confettiController.play();
-        Future.delayed(const Duration(seconds: 2), () {
+        Future.delayed(const Duration(milliseconds: 500), () {
           if (!context.mounted) return;
-          _showWinDialog(context, provider);
+          Navigator.of(context).pushReplacement(
+            MaterialPageRoute(builder: (_) => const LevelCompleteScreen()),
+          );
         });
       }
       
@@ -107,38 +104,8 @@ class _GameScreenState extends State<GameScreen> {
                 ),
               ],
             ),
-            Align(
-              alignment: Alignment.topCenter,
-              child: ConfettiWidget(
-                confettiController: _confettiController,
-                blastDirectionality: BlastDirectionality.explosive,
-                shouldLoop: false,
-                colors: const [Colors.green, Colors.blue, Colors.pink, Colors.orange, Colors.purple],
-              ),
-            ),
           ],
         ),
-      ),
-    );
-  }
-
-  void _showWinDialog(BuildContext context, GameProvider provider) {
-    showDialog(
-      context: context,
-      barrierDismissible: false,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Congratulations!'),
-        content: const Text('You completed the level!'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              _isDialogShowing = false;
-              provider.nextLevel();
-            },
-            child: const Text('Next Level'),
-          ),
-        ],
       ),
     );
   }

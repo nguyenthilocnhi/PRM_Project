@@ -5,6 +5,7 @@ class Level {
   final String title;
   final String difficulty;
   final List<String> quoteLines;
+  final String author;
   final List<Clue> clues;
   final List<String> usedLetters;
   final List<String> disabledLetters;
@@ -14,6 +15,7 @@ class Level {
     required this.title,
     required this.difficulty,
     required this.quoteLines,
+    required this.author,
     required this.clues,
     required this.usedLetters,
     required this.disabledLetters,
@@ -25,6 +27,7 @@ class Level {
       title: json['title'] as String,
       difficulty: json['difficulty'] as String,
       quoteLines: List<String>.from(json['quoteLines']),
+      author: json['author'] as String? ?? 'Unknown',
       clues: (json['clues'] as List).map((c) => Clue.fromJson(c)).toList(),
       usedLetters: List<String>.from(json['usedLetters']),
       disabledLetters: List<String>.from(json['disabledLetters']),
@@ -37,6 +40,7 @@ class Level {
       'title': title,
       'difficulty': difficulty,
       'quoteLines': quoteLines,
+      'author': author,
       'clues': clues.map((c) => c.toJson()).toList(),
       'usedLetters': usedLetters,
       'disabledLetters': disabledLetters,
