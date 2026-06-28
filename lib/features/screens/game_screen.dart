@@ -18,6 +18,7 @@ class GameScreen extends StatefulWidget {
 class _GameScreenState extends State<GameScreen> {
   int? _selectedNumber;
   bool _isDialogShowing = false;
+  bool _isGameOverDialogShowing = false;
   late ConfettiController _confettiController;
 
   @override
@@ -83,6 +84,11 @@ class _GameScreenState extends State<GameScreen> {
           _showWinDialog(context, provider);
         });
       }
+      
+      if (provider.isGameOver && !_isGameOverDialogShowing) {
+        _isGameOverDialogShowing = true;
+        _showGameOverDialog(context, provider);
+      }
     });
 
     return Scaffold(
@@ -131,6 +137,27 @@ class _GameScreenState extends State<GameScreen> {
               provider.nextLevel();
             },
             child: const Text('Next Level'),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showGameOverDialog(BuildContext context, GameProvider provider) {
+    showDialog(
+      context: context,
+      barrierDismissible: false,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Game Over', style: TextStyle(color: Colors.red)),
+        content: const Text('You made 3 mistakes. Try again!'),
+        actions: [
+          TextButton(
+            onPressed: () {
+              Navigator.of(ctx).pop();
+              _isGameOverDialogShowing = false;
+              provider.restartLevel();
+            },
+            child: const Text('Try Again'),
           ),
         ],
       ),
@@ -231,15 +258,9 @@ class _GameScreenState extends State<GameScreen> {
           _buildDifficultyRow(level.difficulty),
           const SizedBox(height: 10),
 
-          const Text(
-            '✕✕✕',
-            style: TextStyle(
-              color: Color(0xffe1e1e1),
-              fontSize: 30,
-              fontWeight: FontWeight.bold,
-              letterSpacing: 6,
-            ),
-          ),
+          _buildStrikes(provider.errorsCount),
+
+          const SizedBox(height: 4),
 
           const Text(
             'SOLUTION',
@@ -341,6 +362,26 @@ class _GameScreenState extends State<GameScreen> {
           ),
         ),
       ],
+    );
+  }
+
+  Widget _buildStrikes(int errorsCount) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: List.generate(3, (index) {
+        bool isError = index < errorsCount;
+        return Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 3),
+          child: Text(
+            '✕',
+            style: TextStyle(
+              color: isError ? Colors.red : const Color(0xffe1e1e1),
+              fontSize: 30,
+              fontWeight: FontWeight.bold,
+            ),
+          ),
+        );
+      }),
     );
   }
 

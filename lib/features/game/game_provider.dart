@@ -20,8 +20,10 @@ class GameProvider extends ChangeNotifier {
 
   bool _isLoading = true;
   bool _isLevelComplete = false;
+  bool _isGameOver = false;
   int _hintCount = 3;
   int _maxUnlockedLevel = 1;
+  int _errorsCount = 0;
 
   List<Level> get allLevels => _allLevels;
   Level? get currentLevel => _currentLevel;
@@ -29,8 +31,10 @@ class GameProvider extends ChangeNotifier {
   Map<int, String> get userInputs => _userInputs;
   bool get isLoading => _isLoading;
   bool get isLevelComplete => _isLevelComplete;
+  bool get isGameOver => _isGameOver;
   int get hintCount => _hintCount;
   int get maxUnlockedLevel => _maxUnlockedLevel;
+  int get errorsCount => _errorsCount;
 
   GameProvider() {
     _initGame();
@@ -59,6 +63,8 @@ class GameProvider extends ChangeNotifier {
 
     _isLoading = true;
     _isLevelComplete = false;
+    _isGameOver = false;
+    _errorsCount = 0;
     notifyListeners();
 
     _currentLevel = _allLevels.firstWhere(
@@ -96,12 +102,32 @@ class GameProvider extends ChangeNotifier {
   }
 
   void inputLetter(int number, String letter) {
-    if (_currentLevel == null || _isLevelComplete) return;
+    if (_currentLevel == null || _isLevelComplete || _isGameOver) return;
 
     if (letter.isEmpty) {
       _userInputs.remove(number);
     } else {
-      _userInputs[number] = letter.toUpperCase();
+      String upperLetter = letter.toUpperCase();
+      
+      // Check if it's correct
+      String correctLetter = '';
+      for (var entry in _cipherMap.entries) {
+        if (entry.value == number) {
+          correctLetter = entry.key;
+          break;
+        }
+      }
+
+      if (upperLetter != correctLetter) {
+        _errorsCount++;
+        if (_errorsCount >= 3) {
+          _isGameOver = true;
+        }
+        notifyListeners();
+        return;
+      }
+
+      _userInputs[number] = upperLetter;
     }
     
     _storageService.saveProgress(_currentLevel!.id, _userInputs);
@@ -197,5 +223,15 @@ class GameProvider extends ChangeNotifier {
     if (_currentLevel == null) return;
     final nextId = _currentLevel!.id + 1;
     await loadLevel(nextId);
+  }
+
+  Future<void> restartLevel() async {
+    if (_currentLevel == null) return;
+    _userInputs.clear();
+    await _storageService.saveProgress(_currentLevel!.id, _userInputs);
+    _errorsCount = 0;
+    _isGameOver = false;
+    _isLevelComplete = false;
+    notifyListeners();
   }
 }
