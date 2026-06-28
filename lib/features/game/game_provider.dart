@@ -76,8 +76,16 @@ class GameProvider extends ChangeNotifier {
     _generateCipherMap(_currentLevel!);
     _userInputs = await _storageService.loadProgress(_currentLevel!.id);
     
-    _isLoading = false;
     _checkWinCondition();
+    
+    // Nếu màn này đã giải xong từ trước, xóa sạch để người chơi có thể chơi lại từ đầu
+    if (_isLevelComplete) {
+      _userInputs.clear();
+      _isLevelComplete = false;
+      await _storageService.saveProgress(_currentLevel!.id, _userInputs);
+    }
+
+    _isLoading = false;
     notifyListeners();
   }
 
