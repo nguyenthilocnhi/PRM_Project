@@ -72,21 +72,21 @@ class GameKeyboard extends StatelessWidget {
     return GestureDetector(
       onTap: onTap,
       child: Container(
-        width: 42,
-        height: 42,
+        width: 44,
+        height: 44,
         margin: const EdgeInsets.symmetric(horizontal: 3),
         decoration: BoxDecoration(
           color: Colors.white,
-          borderRadius: BorderRadius.circular(6),
+          borderRadius: BorderRadius.circular(8),
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withValues(alpha: 0.18),
-              blurRadius: 2,
-              offset: const Offset(0, 2),
+              color: Colors.black.withValues(alpha: 0.25),
+              blurRadius: 1,
+              offset: const Offset(0, 3),
             ),
           ],
         ),
-        child: Icon(icon, color: Colors.black, size: 24),
+        child: Icon(icon, color: Colors.black87, size: 24),
       ),
     );
   }
@@ -106,37 +106,41 @@ class _KeyboardKey extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Color backgroundColor = Colors.white;
-    Color textColor = Colors.black;
+    Color textColor = Colors.black87;
+    double elevationOffset = 3.0;
 
     if (isUsed) {
+      backgroundColor = const Color(0xffe6f8ec);
       textColor = const Color(0xff18b82e);
-    }
-
-    if (isDisabled) {
-      backgroundColor = Colors.grey.shade400;
-      textColor = Colors.grey.shade600;
+      elevationOffset = 1.0;
+    } else if (isDisabled) {
+      backgroundColor = const Color(0xffc5cbd1);
+      textColor = Colors.grey.shade500;
+      elevationOffset = 0.0;
     }
 
     return Container(
-      height: 42,
+      height: 44,
       margin: const EdgeInsets.symmetric(horizontal: 2),
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(6),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.18),
-            blurRadius: 2,
-            offset: const Offset(0, 2),
-          ),
-        ],
+        borderRadius: BorderRadius.circular(8),
+        boxShadow: elevationOffset > 0
+            ? [
+                BoxShadow(
+                  color: Colors.black.withValues(alpha: 0.25),
+                  blurRadius: 1,
+                  offset: Offset(0, elevationOffset),
+                ),
+              ]
+            : null,
       ),
       child: Center(
         child: Text(
           letter,
           style: TextStyle(
             color: textColor,
-            fontSize: 16,
+            fontSize: 18,
             fontWeight: FontWeight.w800,
           ),
         ),

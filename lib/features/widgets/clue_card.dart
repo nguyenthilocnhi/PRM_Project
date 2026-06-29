@@ -19,22 +19,33 @@ class ClueCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    bool isActive = clue.isActive;
+    if (selectedNumber != null) {
+      isActive = false;
+      for (int i = 0; i < clue.answer.length; i++) {
+        if (cipherMap[clue.answer[i]] == selectedNumber) {
+          isActive = true;
+          break;
+        }
+      }
+    }
+
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
       decoration: BoxDecoration(
-        color: Colors.white,
-        borderRadius: BorderRadius.circular(12),
+        color: isActive ? Colors.white : const Color(0xfffcfbfa),
+        borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: clue.isActive ? const Color(0xff28d464) : Colors.transparent,
+          color: isActive ? Colors.blue.shade200 : Colors.transparent,
           width: 2,
         ),
         boxShadow: [
-          if (clue.isActive)
+          if (isActive)
             BoxShadow(
-              color: Colors.green.withValues(alpha: 0.12),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
+              color: Colors.blue.withValues(alpha: 0.15),
+              blurRadius: 12,
+              offset: const Offset(0, 6),
             ),
         ],
       ),
