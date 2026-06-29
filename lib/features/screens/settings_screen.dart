@@ -21,7 +21,7 @@ class SettingsDialog extends StatelessWidget {
         alignment: Alignment.topRight,
         children: [
           Container(
-            width: double.infinity,
+            width: 320, // Constrain width for a compact look
             padding: const EdgeInsets.fromLTRB(20, 24, 20, 24),
             decoration: BoxDecoration(
               color: const Color(0xfffff8df), // Beige background
@@ -43,18 +43,21 @@ class SettingsDialog extends StatelessWidget {
                 const SizedBox(height: 24),
                 _buildSettingRow(
                   title: 'Music',
+                  icon: Icons.music_note_rounded,
                   value: settingsProvider.isMusicEnabled,
                   onChanged: (val) => settingsProvider.toggleMusic(),
                 ),
                 const SizedBox(height: 12),
                 _buildSettingRow(
                   title: 'Sound',
+                  icon: Icons.volume_up_rounded,
                   value: settingsProvider.isSfxEnabled,
                   onChanged: (val) => settingsProvider.toggleSfx(),
                 ),
                 const SizedBox(height: 12),
                 _buildSettingRow(
                   title: 'Vibration',
+                  icon: Icons.vibration_rounded,
                   value: settingsProvider.isVibrationEnabled,
                   onChanged: (val) => settingsProvider.toggleVibration(),
                 ),
@@ -87,25 +90,29 @@ class SettingsDialog extends StatelessWidget {
 
   Widget _buildSettingRow({
     required String title,
+    required IconData icon,
     required bool value,
     required ValueChanged<bool> onChanged,
   }) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 6),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.circular(20),
         border: Border.all(color: const Color(0xffefe0d5), width: 2), // Subtle border
       ),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(
-            title,
-            style: const TextStyle(
-              color: Color(0xffa16d6d),
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+          Icon(icon, color: const Color(0xffa16d6d), size: 24),
+          const SizedBox(width: 16),
+          Expanded(
+            child: Text(
+              title,
+              style: const TextStyle(
+                color: Color(0xffa16d6d),
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Transform.scale(

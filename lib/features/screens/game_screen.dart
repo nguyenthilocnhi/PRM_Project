@@ -362,7 +362,7 @@ class _GameScreenState extends State<GameScreen> {
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: Icon(
               isError ? Icons.close_rounded : Icons.favorite_rounded,
-              color: isError ? Colors.red : const Color(0xffdcdcdc),
+              color: Colors.red,
               size: 28,
             ),
           );
