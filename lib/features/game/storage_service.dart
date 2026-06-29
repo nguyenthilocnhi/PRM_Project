@@ -5,6 +5,7 @@ class StorageService {
   static const String _keyCurrentLevel = 'current_level';
   static const String _keyPrefixProgress = 'progress_level_';
   static const String _keyHints = 'hint_count';
+  static const String _keyLastHintTime = 'last_hint_time';
   static const String _keyMaxUnlockedLevel = 'max_unlocked_level';
   
   static const String _keySettingMusic = 'setting_music';
@@ -65,6 +66,16 @@ class StorageService {
   Future<int> loadHints() async {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getInt(_keyHints) ?? 3;
+  }
+
+  Future<void> saveLastHintTime(int timestamp) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt(_keyLastHintTime, timestamp);
+  }
+
+  Future<int?> loadLastHintTime() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt(_keyLastHintTime);
   }
 
   // Save current level ID

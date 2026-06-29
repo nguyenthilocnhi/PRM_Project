@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 import 'dart:math';
 import 'package:flutter/material.dart';
@@ -26,6 +27,10 @@ class GameProvider extends ChangeNotifier {
   int _maxUnlockedLevel = 1;
   int _errorsCount = 0;
 
+  int? _lastHintTime;
+  Timer? _hintTimer;
+  int _secondsUntilNextHint = 0;
+
   List<Level> get allLevels => _allLevels;
   Level? get currentLevel => _currentLevel;
   Map<String, int> get cipherMap => _cipherMap;
@@ -36,6 +41,7 @@ class GameProvider extends ChangeNotifier {
   int get hintCount => _hintCount;
   int get maxUnlockedLevel => _maxUnlockedLevel;
   int get errorsCount => _errorsCount;
+  int get secondsUntilNextHint => _secondsUntilNextHint;
 
   GameProvider() {
     loadInitialData();
@@ -54,9 +60,57 @@ class GameProvider extends ChangeNotifier {
     }
 
     _hintCount = await _storageService.loadHints();
+    _lastHintTime = await _storageService.loadLastHintTime();
+    _checkHintRegeneration();
+    _startHintTimer();
+
     _maxUnlockedLevel = await _storageService.loadMaxUnlockedLevel();
     final currentLevelId = await _storageService.loadCurrentLevel();
     await loadLevel(currentLevelId);
+  }
+
+  void _checkHintRegeneration() {
+    if (_hintCount >= 3 || _lastHintTime == null) return;
+    
+    final now = DateTime.now().millisecondsSinceEpoch;
+    final int elapsed = now - _lastHintTime!;
+    final int hoursPassed = elapsed ~/ (60 * 60 * 1000);
+    
+    if (hoursPassed > 0) {
+      _hintCount += hoursPassed;
+      if (_hintCount >= 3) {
+        _hintCount = 3;
+        _lastHintTime = null;
+      } else {
+        _lastHintTime = _lastHintTime! + (hoursPassed * 60 * 60 * 1000);
+      }
+      _storageService.saveHints(_hintCount);
+      if (_lastHintTime != null) {
+        _storageService.saveLastHintTime(_lastHintTime!);
+      }
+    }
+  }
+
+  void _startHintTimer() {
+    _hintTimer?.cancel();
+    _hintTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_hintCount < 3 && _lastHintTime != null) {
+        final now = DateTime.now().millisecondsSinceEpoch;
+        final elapsed = now - _lastHintTime!;
+        final int remainingMs = (60 * 60 * 1000) - elapsed;
+        
+        if (remainingMs <= 0) {
+          _checkHintRegeneration();
+          notifyListeners();
+        } else {
+          final int remainingSecs = remainingMs ~/ 1000;
+          if (_secondsUntilNextHint != remainingSecs) {
+            _secondsUntilNextHint = remainingSecs;
+            notifyListeners();
+          }
+        }
+      }
+    });
   }
 
   Future<void> loadLevel(int levelId) async {
@@ -197,6 +251,10 @@ class GameProvider extends ChangeNotifier {
     }
 
     if (targetLetter.isNotEmpty) {
+      if (_hintCount >= 3) {
+        _lastHintTime = DateTime.now().millisecondsSinceEpoch;
+        _storageService.saveLastHintTime(_lastHintTime!);
+      }
       _hintCount--;
       _storageService.saveHints(_hintCount);
       inputLetter(targetNumber, targetLetter);
@@ -251,5 +309,11 @@ class GameProvider extends ChangeNotifier {
     _isGameOver = false;
     _isLevelComplete = false;
     notifyListeners();
+  }
+
+  @override
+  void dispose() {
+    _hintTimer?.cancel();
+    super.dispose();
   }
 }

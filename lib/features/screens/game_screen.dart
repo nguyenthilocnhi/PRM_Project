@@ -144,13 +144,18 @@ class _GameScreenState extends State<GameScreen> {
           children: [
             _buildTopHeader(level.title),
             Expanded(
-              child: SingleChildScrollView(
-                child: _buildGameContent(provider),
+              child: Stack(
+                children: [
+                  SingleChildScrollView(
+                    child: _buildGameContent(provider),
+                  ),
+                  Positioned(
+                    right: 16,
+                    bottom: 16,
+                    child: _buildHintButton(provider),
+                  ),
+                ],
               ),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(right: 16, bottom: 8),
-              child: _buildBottomTools(provider),
             ),
             GameKeyboard(
               usedLetters: provider.userInputs.values.toSet(),
@@ -353,62 +358,81 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Widget _buildBottomTools(GameProvider provider) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        _toolButton(
-          icon: Icons.lightbulb,
-          color: const Color(0xff1597f5),
-          badge: provider.hintCount.toString(),
-          onTap: () {
-            provider.useHint();
-          },
-        ),
-      ],
-    );
-  }
+  Widget _buildHintButton(GameProvider provider) {
+    String timerText = '';
+    if (provider.hintCount < 3) {
+      final secs = provider.secondsUntilNextHint;
+      final m = (secs ~/ 60).toString().padLeft(2, '0');
+      final s = (secs % 60).toString().padLeft(2, '0');
+      timerText = '$m:$s';
+    }
 
-  Widget _toolButton({
-    required IconData icon,
-    required Color color,
-    required String badge,
-    VoidCallback? onTap,
-  }) {
     return GestureDetector(
-      onTap: onTap,
-      child: Stack(
-        clipBehavior: Clip.none,
+      onTap: () {
+        provider.useHint();
+      },
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
         children: [
-        Container(
-          width: 48,
-          height: 44,
-          decoration: BoxDecoration(
-            color: color,
-            borderRadius: BorderRadius.circular(8),
+          Stack(
+            clipBehavior: Clip.none,
+            children: [
+              Container(
+                width: 52,
+                height: 52,
+                decoration: BoxDecoration(
+                  color: const Color(0xff1597f5),
+                  shape: BoxShape.circle,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withValues(alpha: 0.2),
+                      blurRadius: 6,
+                      offset: const Offset(0, 3),
+                    )
+                  ],
+                ),
+                child: const Icon(Icons.lightbulb, color: Colors.white, size: 28),
+              ),
+              Positioned(
+                right: -4,
+                top: -4,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10),
+                    border: Border.all(color: Colors.blue.shade200, width: 1.5),
+                  ),
+                  child: Text(
+                    '${provider.hintCount}',
+                    style: const TextStyle(
+                      color: Colors.blue,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
-          child: Icon(icon, color: Colors.white, size: 26),
-        ),
-        if (badge.isNotEmpty)
-          Positioned(
-            right: -3,
-            top: -7,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 1),
+          if (provider.hintCount < 3)
+            Container(
+              margin: const EdgeInsets.only(top: 6),
+              padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
               decoration: BoxDecoration(
-                color: Colors.white,
+                color: Colors.black.withValues(alpha: 0.6),
                 borderRadius: BorderRadius.circular(8),
               ),
               child: Text(
-                badge,
-                style: TextStyle(
-                  color: color,
-                  fontSize: 12,
+                timerText,
+                style: const TextStyle(
+                  color: Colors.white,
+                  fontSize: 11,
                   fontWeight: FontWeight.bold,
+                  letterSpacing: 0.5,
                 ),
               ),
             ),
-          ),
         ],
       ),
     );
