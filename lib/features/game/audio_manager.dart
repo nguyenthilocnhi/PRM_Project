@@ -9,6 +9,7 @@ class AudioManager {
 
   final AudioPlayer _bgmPlayer = AudioPlayer();
   final AudioPlayer _sfxPlayer = AudioPlayer();
+  final AudioPlayer _tapPlayer = AudioPlayer();
 
   bool _isMusicEnabled = true;
   bool _isSfxEnabled = true;
@@ -17,6 +18,12 @@ class AudioManager {
   // Initialize and load bgm
   Future<void> init() async {
     _bgmPlayer.setReleaseMode(ReleaseMode.loop);
+    
+    // Preload audio into memory for ZERO latency
+    await _tapPlayer.setPlayerMode(PlayerMode.lowLatency);
+    await _tapPlayer.setSourceAsset('audio/tap.wav');
+    
+    await _sfxPlayer.setPlayerMode(PlayerMode.lowLatency);
   }
 
   void updateSettings({
@@ -39,7 +46,7 @@ class AudioManager {
 
   Future<void> playBgm() async {
     if (_isMusicEnabled) {
-      await _bgmPlayer.play(AssetSource('audio/bgm.wav'));
+      await _bgmPlayer.play(AssetSource('audio/lo-fi-piano.mp3'));
     }
   }
 
@@ -49,8 +56,10 @@ class AudioManager {
 
   Future<void> playTapSound() async {
     if (_isSfxEnabled) {
-      // Create a temporary player for overlapping tap sounds
-      AudioPlayer().play(AssetSource('audio/tap.wav'), mode: PlayerMode.lowLatency);
+      if (_tapPlayer.state == PlayerState.playing) {
+        await _tapPlayer.stop();
+      }
+      await _tapPlayer.resume();
     }
     if (_isVibrationEnabled) {
       Vibration.vibrate(duration: 50, amplitude: 64);
