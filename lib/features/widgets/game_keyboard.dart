@@ -42,6 +42,7 @@ class GameKeyboard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
+                  if (rowIndex == 1) const Spacer(flex: 5),
                   if (rowIndex == 2) _arrowKey(Icons.skip_previous, onLeftArrow),
                   ...row.split('').map((letter) {
                     final bool isUsed = usedLetters.contains(letter);
@@ -49,6 +50,7 @@ class GameKeyboard extends StatelessWidget {
                     final bool isActuallyDisabled = isDisabled || isUsed;
 
                     return Expanded(
+                      flex: 10,
                       child: GestureDetector(
                         onTap: isActuallyDisabled ? null : () => onKeyTap(letter),
                         child: _KeyboardKey(
@@ -60,7 +62,7 @@ class GameKeyboard extends StatelessWidget {
                     );
                   }),
                   if (rowIndex == 2) _arrowKey(Icons.skip_next, onRightArrow),
-                  if (rowIndex == 1) const SizedBox(width: 20), // Balance for 9 keys
+                  if (rowIndex == 1) const Spacer(flex: 5),
                 ],
               ),
             );
@@ -71,24 +73,26 @@ class GameKeyboard extends StatelessWidget {
   }
 
   Widget _arrowKey(IconData icon, VoidCallback onTap) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        width: 44,
-        height: 44,
-        margin: const EdgeInsets.symmetric(horizontal: 3),
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.25),
-              blurRadius: 1,
-              offset: const Offset(0, 3),
-            ),
-          ],
+    return Expanded(
+      flex: 15,
+      child: GestureDetector(
+        onTap: onTap,
+        child: Container(
+          height: 44,
+          margin: const EdgeInsets.symmetric(horizontal: 3),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(8),
+            boxShadow: [
+              BoxShadow(
+                color: Colors.black.withValues(alpha: 0.25),
+                blurRadius: 1,
+                offset: const Offset(0, 3),
+              ),
+            ],
+          ),
+          child: Icon(icon, color: Colors.black87, size: 24),
         ),
-        child: Icon(icon, color: Colors.black87, size: 24),
       ),
     );
   }
