@@ -6,6 +6,46 @@ class StorageService {
   static const String _keyPrefixProgress = 'progress_level_';
   static const String _keyHints = 'hint_count';
   static const String _keyMaxUnlockedLevel = 'max_unlocked_level';
+  
+  static const String _keySettingMusic = 'setting_music';
+  static const String _keySettingSfx = 'setting_sfx';
+  static const String _keySettingVibration = 'setting_vibration';
+
+  Future<void> clearAllData() async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.clear();
+  }
+
+  // Settings
+  Future<void> saveSettingMusic(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_keySettingMusic, value);
+  }
+
+  Future<bool> loadSettingMusic() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_keySettingMusic) ?? true;
+  }
+
+  Future<void> saveSettingSfx(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_keySettingSfx, value);
+  }
+
+  Future<bool> loadSettingSfx() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_keySettingSfx) ?? true;
+  }
+
+  Future<void> saveSettingVibration(bool value) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setBool(_keySettingVibration, value);
+  }
+
+  Future<bool> loadSettingVibration() async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getBool(_keySettingVibration) ?? true;
+  }
 
   Future<void> saveMaxUnlockedLevel(int levelId) async {
     final prefs = await SharedPreferences.getInstance();

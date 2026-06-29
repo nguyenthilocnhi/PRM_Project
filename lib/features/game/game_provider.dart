@@ -5,6 +5,7 @@ import 'package:flutter/services.dart';
 
 import '../models/level.dart';
 import 'storage_service.dart';
+import 'audio_manager.dart';
 
 class GameProvider extends ChangeNotifier {
   final StorageService _storageService = StorageService();
@@ -37,10 +38,10 @@ class GameProvider extends ChangeNotifier {
   int get errorsCount => _errorsCount;
 
   GameProvider() {
-    _initGame();
+    loadInitialData();
   }
 
-  Future<void> _initGame() async {
+  Future<void> loadInitialData() async {
     _isLoading = true;
     notifyListeners();
 
@@ -128,6 +129,7 @@ class GameProvider extends ChangeNotifier {
 
       if (upperLetter != correctLetter) {
         _errorsCount++;
+        AudioManager().playErrorSound();
         if (_errorsCount >= 3) {
           _isGameOver = true;
         }
@@ -135,6 +137,7 @@ class GameProvider extends ChangeNotifier {
         return;
       }
 
+      AudioManager().playTapSound();
       _userInputs[number] = upperLetter;
     }
     
@@ -220,6 +223,7 @@ class GameProvider extends ChangeNotifier {
 
     _isLevelComplete = isWin;
     if (isWin) {
+      AudioManager().playSuccessSound();
       if (_currentLevel!.id >= _maxUnlockedLevel && _currentLevel!.id < _allLevels.length) {
         _maxUnlockedLevel = _currentLevel!.id + 1;
         _storageService.saveMaxUnlockedLevel(_maxUnlockedLevel);
