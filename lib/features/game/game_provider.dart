@@ -112,6 +112,9 @@ class GameProvider extends ChangeNotifier {
 
   void inputLetter(int number, String letter) {
     if (_currentLevel == null || _isLevelComplete || _isGameOver) return;
+    
+    // Ignore if cell is already correctly filled
+    if (_userInputs.containsKey(number)) return;
 
     if (letter.isEmpty) {
       _userInputs.remove(number);
@@ -148,6 +151,9 @@ class GameProvider extends ChangeNotifier {
 
   void deleteLetter(int number) {
     if (_currentLevel == null || _isLevelComplete) return;
+
+    // Ignore if cell is already correctly filled
+    if (_userInputs.containsKey(number)) return;
 
     _userInputs.remove(number);
     _storageService.saveProgress(_currentLevel!.id, _userInputs);

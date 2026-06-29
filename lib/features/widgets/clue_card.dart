@@ -37,8 +37,8 @@ class ClueCard extends StatelessWidget {
         color: isActive ? Colors.white : const Color(0xfffcfbfa),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isActive ? Colors.blue.shade200 : Colors.transparent,
-          width: 2,
+          color: isActive ? Colors.blue.shade200 : Colors.black26,
+          width: isActive ? 2 : 1,
         ),
         boxShadow: [
           if (isActive)
@@ -68,13 +68,14 @@ class ClueCard extends StatelessWidget {
             children: List.generate(clue.answer.length, (index) {
               final letter = clue.answer[index];
               final number = cipherMap[letter] ?? 0;
+              final bool isFilled = userGuesses.containsKey(number);
 
               return GestureDetector(
-                onTap: () => onNumberSelected(number),
+                onTap: isFilled ? null : () => onNumberSelected(number),
                 child: _ClueLetterCell(
                   letter: userGuesses[number] ?? '',
                   number: number,
-                  isSelected: selectedNumber == number,
+                  isSelected: selectedNumber == number && !isFilled,
                 ),
               );
             }),

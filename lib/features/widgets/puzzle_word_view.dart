@@ -41,12 +41,13 @@ class PuzzleWordView extends StatelessWidget {
                       ),
                     );
                   }
+                  final bool isFilled = userGuesses.containsKey(number);
                   return GestureDetector(
-                    onTap: () => onNumberSelected(number),
+                    onTap: isFilled ? null : () => onNumberSelected(number),
                     child: _PuzzleLetterCell(
                       letter: userGuesses[number] ?? '',
                       number: number,
-                      isSelected: selectedNumber == number,
+                      isSelected: selectedNumber == number && !isFilled,
                     ),
                   );
                 }).toList(),

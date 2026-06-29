@@ -4,14 +4,16 @@ class GameKeyboard extends StatelessWidget {
   final Set<String> usedLetters;
   final List<String> disabledLetters;
   final Function(String) onKeyTap;
-  final VoidCallback onDelete;
+  final VoidCallback onLeftArrow;
+  final VoidCallback onRightArrow;
 
   const GameKeyboard({
     super.key,
     required this.usedLetters,
     required this.disabledLetters,
     required this.onKeyTap,
-    required this.onDelete,
+    required this.onLeftArrow,
+    required this.onRightArrow,
   });
 
   @override
@@ -40,7 +42,7 @@ class GameKeyboard extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  if (rowIndex == 2) _arrowKey(Icons.keyboard_tab_outlined, () {}),
+                  if (rowIndex == 2) _arrowKey(Icons.skip_previous, onLeftArrow),
                   ...row.split('').map((letter) {
                     final bool isUsed = usedLetters.contains(letter);
                     final bool isDisabled = disabledLetters.contains(letter);
@@ -57,7 +59,7 @@ class GameKeyboard extends StatelessWidget {
                       ),
                     );
                   }),
-                  if (rowIndex == 2) _arrowKey(Icons.backspace_outlined, onDelete),
+                  if (rowIndex == 2) _arrowKey(Icons.skip_next, onRightArrow),
                   if (rowIndex == 1) const SizedBox(width: 20), // Balance for 9 keys
                 ],
               ),

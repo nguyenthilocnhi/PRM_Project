@@ -42,9 +42,57 @@ class _GameScreenState extends State<GameScreen> {
     }
   }
 
-  void _onDelete() {
+  void _onLeftArrow() {
+    _navigateCell(-1);
+  }
+
+  void _onRightArrow() {
+    _navigateCell(1);
+  }
+
+  void _navigateCell(int direction) {
+    final provider = context.read<GameProvider>();
+    final level = provider.currentLevel;
+    if (level == null) return;
+    
+    // Get visual order of empty cells
+    final List<int> emptyCells = [];
+    for (String line in level.quoteLines) {
+      for (String word in line.split(' ')) {
+        for (String letter in word.split('')) {
+          final number = provider.cipherMap[letter];
+          if (number != null && !provider.userInputs.containsKey(number) && !emptyCells.contains(number)) {
+             emptyCells.add(number);
+          }
+        }
+      }
+    }
+    
+    // Also add any empty cells from clues that aren't in the quote
+    for (var clue in level.clues) {
+      for (int i = 0; i < clue.answer.length; i++) {
+          final letter = clue.answer[i];
+          final number = provider.cipherMap[letter];
+          if (number != null && !provider.userInputs.containsKey(number) && !emptyCells.contains(number)) {
+             emptyCells.add(number);
+          }
+      }
+    }
+    
+    if (emptyCells.isEmpty) return;
+
+    int currentIndex = -1;
     if (_selectedNumber != null) {
-      context.read<GameProvider>().deleteLetter(_selectedNumber!);
+      currentIndex = emptyCells.indexOf(_selectedNumber!);
+    }
+
+    if (currentIndex == -1) {
+      // If current selected is not in empty list (or null), just select the first one
+      _onNumberSelected(emptyCells.first);
+    } else {
+      int nextIndex = (currentIndex + direction) % emptyCells.length;
+      if (nextIndex < 0) nextIndex += emptyCells.length;
+      _onNumberSelected(emptyCells[nextIndex]);
     }
   }
 
@@ -108,7 +156,8 @@ class _GameScreenState extends State<GameScreen> {
               usedLetters: provider.userInputs.values.toSet(),
               disabledLetters: List<String>.from(level.disabledLetters),
               onKeyTap: _onKeyTap,
-              onDelete: _onDelete,
+              onLeftArrow: _onLeftArrow,
+              onRightArrow: _onRightArrow,
             ),
           ],
         ),
@@ -266,6 +315,7 @@ class _GameScreenState extends State<GameScreen> {
       decoration: BoxDecoration(
         color: Colors.white.withValues(alpha: 0.5),
         borderRadius: BorderRadius.circular(20),
+        border: Border.all(color: Colors.black26, width: 1),
       ),
       child: Row(
         mainAxisSize: MainAxisSize.min,
