@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'level_selection_screen.dart';
 import 'settings_screen.dart';
+import 'tutorial_dialog.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -89,15 +90,31 @@ class HomeScreen extends StatelessWidget {
             Positioned(
               top: 16,
               right: 16,
-              child: IconButton(
-                icon: const Icon(Icons.settings, color: Colors.white, size: 32),
-                onPressed: () {
-                  showDialog(
-                    context: context,
-                    barrierColor: Colors.black54,
-                    builder: (context) => const SettingsDialog(),
-                  );
-                },
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.info_outline, color: Colors.white, size: 32),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        barrierColor: Colors.black54,
+                        builder: (context) => const TutorialDialog(),
+                      );
+                    },
+                  ),
+                  const SizedBox(width: 8),
+                  IconButton(
+                    icon: const Icon(Icons.settings, color: Colors.white, size: 32),
+                    onPressed: () {
+                      showDialog(
+                        context: context,
+                        barrierColor: Colors.black54,
+                        builder: (context) => const SettingsDialog(),
+                      );
+                    },
+                  ),
+                ],
               ),
             ),
           ],

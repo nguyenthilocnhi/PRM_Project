@@ -6,7 +6,8 @@ import 'package:project/features/game/storage_service.dart';
 import 'package:project/features/screens/home_screen.dart';
 
 class SettingsDialog extends StatelessWidget {
-  const SettingsDialog({super.key});
+  final bool isGameScreen;
+  const SettingsDialog({super.key, this.isGameScreen = false});
 
   @override
   Widget build(BuildContext context) {
@@ -58,7 +59,7 @@ class SettingsDialog extends StatelessWidget {
                   onChanged: (val) => settingsProvider.toggleVibration(),
                 ),
                 const SizedBox(height: 24),
-                _buildResetButton(context),
+                isGameScreen ? _buildRestartLevelButton(context) : _buildResetButton(context),
               ],
             ),
           ),
@@ -136,6 +137,33 @@ class SettingsDialog extends StatelessWidget {
         ),
         child: const Text(
           'Reset Progress',
+          textAlign: TextAlign.center,
+          style: TextStyle(
+            color: Color(0xffa16d6d),
+            fontSize: 18,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildRestartLevelButton(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context.read<GameProvider>().restartLevel();
+        Navigator.of(context).pop();
+      },
+      child: Container(
+        width: double.infinity,
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        decoration: BoxDecoration(
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(20),
+          border: Border.all(color: const Color(0xffefe0d5), width: 2),
+        ),
+        child: const Text(
+          'Restart Level',
           textAlign: TextAlign.center,
           style: TextStyle(
             color: Color(0xffa16d6d),
