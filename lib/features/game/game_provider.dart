@@ -138,6 +138,8 @@ class GameProvider extends ChangeNotifier {
   Future<void> loadLevel(int levelId) async {
     if (_allLevels.isEmpty) return;
 
+    AudioManager().playBgm();
+
     _isLoading = true;
     _isLevelComplete = false;
     _isGameOver = false;
@@ -309,7 +311,9 @@ class GameProvider extends ChangeNotifier {
 
     if (isWin && !_isLevelComplete) {
       _isLevelComplete = true;
-      _hintCount++; // Task 1: Increment hint count on win
+      if (_hintCount < 3) {
+        _hintCount++; // Increment hint count on win, max 3
+      }
       _storageService.saveHints(_hintCount);
 
       AudioManager().playSuccessSound();
@@ -328,6 +332,7 @@ class GameProvider extends ChangeNotifier {
 
   Future<void> restartLevel() async {
     if (_currentLevel == null) return;
+    AudioManager().playBgm(); // Ensure BGM is playing
     _userInputs.clear();
     await _storageService.saveProgress(_currentLevel!.id, _userInputs);
     _errorsCount = 0;

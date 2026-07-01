@@ -75,7 +75,7 @@ class _TutorialDialogState extends State<TutorialDialog> {
                   ),
                   _buildTutorialPage(
                     title: 'Need a Hint?',
-                    description: 'If you get stuck, use the Hint button. You have a maximum of 3 hints, which regenerate every 60 minutes.',
+                    description: 'If you get stuck, use the Hint button. You earn +1 hint by completing a level (max 3 hints), or 1 hint regenerates every 60 minutes.',
                     imageWidget: _buildIllustration3(),
                   ),
                 ],
