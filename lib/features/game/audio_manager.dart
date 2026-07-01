@@ -46,10 +46,8 @@ class AudioManager {
       await _tapPlayer.setPlayerMode(PlayerMode.lowLatency);
       await _tapPlayer.setSourceAsset('audio/tap.wav');
       
-      // Do not preload success sound since mp3 lowLatency resume might fail.
-      // We will play it directly using .play()
-
-      // Do not preload error sound to ensure reliable playback with .play()
+      // Use standard MediaPlayer for error and success
+      // No need to set lowLatency or preload source, we will use .play()
     } catch (e) {
       debugPrint('Error initializing AudioManager: $e');
     }
@@ -101,21 +99,32 @@ class AudioManager {
 
   Future<void> playSuccessSound() async {
     if (_isSfxEnabled) {
+      await _successPlayer.stop();
       await _successPlayer.play(AssetSource('audio/game-win-sound.wav'));
     }
     if (_isVibrationEnabled) {
-      // Light vibration to avoid audio ducking
-      Vibration.vibrate(duration: 50, amplitude: 32);
+      // Light vibration (duration only to support all devices)
+      Vibration.vibrate(duration: 100);
     }
+    // Safety net: OS might natively duck/pause BGM due to MediaPlayer or Vibration.
+    // We enforce a resume after the sound/vibration finishes.
+    Future.delayed(const Duration(milliseconds: 2000), () {
+      playBgm();
+    });
   }
 
   Future<void> playErrorSound() async {
     if (_isSfxEnabled) {
+      await _errorPlayer.stop();
       await _errorPlayer.play(AssetSource('audio/error.wav'));
     }
     if (_isVibrationEnabled) {
-      // Light vibration to avoid audio ducking
-      Vibration.vibrate(duration: 40, amplitude: 64);
+      // Light vibration (duration only)
+      Vibration.vibrate(duration: 100);
     }
+    // Safety net: OS might natively duck/pause BGM.
+    Future.delayed(const Duration(milliseconds: 500), () {
+      playBgm();
+    });
   }
 }
