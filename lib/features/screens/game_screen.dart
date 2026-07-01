@@ -158,24 +158,39 @@ class _GameScreenState extends State<GameScreen> {
               children: [
                 _buildTopHeader(level.title),
                 Expanded(
-                  child: Stack(
-                    children: [
-                      SingleChildScrollView(
-                        child: _buildGameContent(provider),
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: Color(0xfffff8df), // Light beige for high contrast and readability
+                      borderRadius: BorderRadius.only(
+                        topLeft: Radius.circular(30),
+                        topRight: Radius.circular(30),
                       ),
-                      Positioned(
-                        right: 16,
-                        bottom: 16,
-                        child: _buildHintButton(provider),
-                      ),
-                    ],
+                    ),
+                    child: Column(
+                      children: [
+                        Expanded(
+                          child: Stack(
+                            children: [
+                              SingleChildScrollView(
+                                child: _buildGameContent(provider),
+                              ),
+                              Positioned(
+                                right: 16,
+                                bottom: 16,
+                                child: _buildHintButton(provider),
+                              ),
+                            ],
+                          ),
+                        ),
+                        GameKeyboard(
+                          keyStatuses: _calculateKeyStatuses(provider),
+                          onKeyTap: _onKeyTap,
+                          onLeftArrow: _onLeftArrow,
+                          onRightArrow: _onRightArrow,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                GameKeyboard(
-                  keyStatuses: _calculateKeyStatuses(provider),
-                  onKeyTap: _onKeyTap,
-                  onLeftArrow: _onLeftArrow,
-                  onRightArrow: _onRightArrow,
                 ),
               ],
             ),

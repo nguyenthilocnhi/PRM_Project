@@ -27,8 +27,8 @@ class GameKeyboard extends StatelessWidget {
     return Container(
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(8, 12, 8, 16),
-      decoration: BoxDecoration(
-        color: Colors.black.withValues(alpha: 0.15),
+      decoration: const BoxDecoration(
+        color: Color(0xffd4d9dd),
       ),
       child: Column(
         mainAxisSize: MainAxisSize.min,
@@ -113,23 +113,23 @@ class _KeyboardKey extends StatelessWidget {
 
     switch (status) {
       case KeyStatus.fullyCorrect:
-        backgroundColor = Colors.white.withValues(alpha: 0.3); // Xám (Completed)
-        textColor = Colors.white60;
+        backgroundColor = const Color(0xffc5cbd1); // Xám (Completed)
+        textColor = Colors.grey.shade700;
         elevationOffset = 0.0;
         break;
       case KeyStatus.partiallyCorrect:
-        backgroundColor = const Color(0xff18b82e); // Xanh lá (Partial/Correct in place)
-        textColor = Colors.white;
+        backgroundColor = const Color(0xffe6f8ec); // Xanh lá (Partial/Correct in place)
+        textColor = const Color(0xff18b82e);
         elevationOffset = 1.0;
         break;
       case KeyStatus.disabled:
-        backgroundColor = Colors.white.withValues(alpha: 0.1);
-        textColor = Colors.white30;
+        backgroundColor = const Color(0xffc5cbd1).withValues(alpha: 0.5);
+        textColor = Colors.grey.shade400;
         elevationOffset = 0.0;
         break;
       case KeyStatus.none:
         backgroundColor = Colors.white;
-        textColor = const Color(0xff1e3c72);
+        textColor = Colors.black87;
         elevationOffset = 3.0;
         break;
     }
