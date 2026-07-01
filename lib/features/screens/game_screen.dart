@@ -269,11 +269,17 @@ class _GameScreenState extends State<GameScreen> {
                   width: 44,
                   height: 44,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.15),
+                    color: Colors.white,
                     shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white30, width: 1.5),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
-                  child: const Icon(Icons.arrow_back, color: Colors.white),
+                  child: const Icon(Icons.arrow_back, color: Colors.black87),
                 ),
               ),
             ),
@@ -283,7 +289,7 @@ class _GameScreenState extends State<GameScreen> {
               title.toUpperCase(),
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Colors.white, 
+                color: Color(0xff2d4b85), 
                 fontSize: 24,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 1.2,
@@ -306,11 +312,17 @@ class _GameScreenState extends State<GameScreen> {
                   height: 44,
                   margin: const EdgeInsets.only(right: 8),
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.15),
+                    color: Colors.white,
                     shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white30, width: 1.5),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
-                  child: const Icon(Icons.info_outline, color: Colors.white),
+                  child: const Icon(Icons.info_outline, color: Colors.black87),
                 ),
               ),
               GestureDetector(
@@ -325,11 +337,17 @@ class _GameScreenState extends State<GameScreen> {
                   width: 44,
                   height: 44,
                   decoration: BoxDecoration(
-                    color: Colors.white.withValues(alpha: 0.15),
+                    color: Colors.white,
                     shape: BoxShape.circle,
-                    border: Border.all(color: Colors.white30, width: 1.5),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withValues(alpha: 0.05),
+                        blurRadius: 4,
+                        offset: const Offset(0, 2),
+                      ),
+                    ],
                   ),
-                  child: const Icon(Icons.settings, color: Colors.white),
+                  child: const Icon(Icons.settings, color: Colors.black87),
                 ),
               ),
             ],

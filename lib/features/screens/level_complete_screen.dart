@@ -58,7 +58,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                   const Text(
                     'LEVEL COMPLETE!',
                     style: TextStyle(
-                      color: Colors.white,
+                      color: Color(0xff1e3c72),
                       fontSize: 28,
                       fontWeight: FontWeight.w900,
                       letterSpacing: 2,
@@ -70,12 +70,11 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                     decoration: BoxDecoration(
-                      color: Colors.white.withValues(alpha: 0.15),
+                      color: Colors.white,
                       borderRadius: BorderRadius.circular(24),
-                      border: Border.all(color: Colors.white30, width: 1.5),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.1),
+                          color: Colors.black.withValues(alpha: 0.2),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),
@@ -83,7 +82,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                     ),
                     child: Column(
                       children: [
-                        const Icon(Icons.format_quote, size: 60, color: Colors.cyanAccent),
+                        const Icon(Icons.format_quote, size: 60, color: Color(0xff45b7f5)),
                         const SizedBox(height: 16),
                         Text(
                           quote,
@@ -91,7 +90,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                           style: const TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
-                            color: Colors.white,
+                            color: Color(0xff2d4b85),
                             height: 1.4,
                           ),
                         ),
@@ -99,7 +98,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                         Container(
                           width: 50,
                           height: 4,
-                          color: Colors.cyanAccent.withValues(alpha: 0.5),
+                          color: const Color(0xff45b7f5).withValues(alpha: 0.3),
                         ),
                         const SizedBox(height: 24),
                         Text(
@@ -108,7 +107,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: Colors.white70,
+                            color: Colors.grey,
                             fontStyle: FontStyle.italic,
                           ),
                         ),

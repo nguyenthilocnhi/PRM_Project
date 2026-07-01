@@ -40,15 +40,9 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
     return Scaffold(
       body: Stack(
         children: [
-          // Background Gradient
+          // Background Color
           Container(
-            decoration: const BoxDecoration(
-              gradient: LinearGradient(
-                colors: [Color(0xff1e3c72), Color(0xff45b7f5)],
-                begin: Alignment.topCenter,
-                end: Alignment.bottomCenter,
-              ),
-            ),
+            color: const Color(0xfffff8df),
           ),
           
           // Subtle Floating Cryptogram Pattern
@@ -97,24 +91,17 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       const Text(
                         'CODE BUSTERS',
                         style: TextStyle(
-                          color: Colors.white,
+                          color: Color(0xff1e3c72),
                           fontSize: 40,
                           fontWeight: FontWeight.w900,
                           letterSpacing: 3,
-                          shadows: [
-                            Shadow(
-                              color: Colors.black45,
-                              offset: Offset(0, 4),
-                              blurRadius: 8,
-                            ),
-                          ],
                         ),
                       ),
                       const SizedBox(height: 8),
                       const Text(
                         'Cryptogram Puzzle',
                         style: TextStyle(
-                          color: Colors.white70,
+                          color: Color(0xff2d4b85),
                           fontSize: 18,
                           fontStyle: FontStyle.italic,
                           fontWeight: FontWeight.w600,
@@ -296,9 +283,9 @@ class _GlassIconButton extends StatelessWidget {
             decoration: BoxDecoration(
               color: Colors.white.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.white.withValues(alpha: 0.3), width: 1.5),
+              border: Border.all(color: Colors.black12, width: 1.5),
             ),
-            child: Icon(icon, color: Colors.white, size: 28),
+            child: Icon(icon, color: const Color(0xff2d4b85), size: 28),
           ),
         ),
       ),
@@ -323,7 +310,7 @@ class _CryptogramPatternPainter extends CustomPainter {
       textPainter.text = TextSpan(
         text: char,
         style: TextStyle(
-          color: Colors.white.withValues(alpha: 0.05),
+          color: Colors.black.withValues(alpha: 0.05),
           fontSize: fontSize,
           fontWeight: FontWeight.bold,
         ),

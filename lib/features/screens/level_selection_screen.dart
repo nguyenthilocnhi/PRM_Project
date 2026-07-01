@@ -21,13 +21,13 @@ class LevelSelectionScreen extends StatelessWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            icon: const Icon(Icons.arrow_back, color: Colors.black87),
             onPressed: () => Navigator.of(context).pop(),
           ),
           title: const Text(
             'SELECT LEVEL',
             style: TextStyle(
-              color: Colors.white,
+              color: Color(0xff1e3c72),
               fontWeight: FontWeight.w900,
               letterSpacing: 2,
             ),
@@ -67,10 +67,10 @@ class LevelSelectionScreen extends StatelessWidget {
                           end: Alignment.bottomRight,
                         )
                       : null,
-                    color: isUnlocked ? null : Colors.white.withValues(alpha: 0.1),
+                    color: isUnlocked ? null : Colors.black.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(16),
                     border: Border.all(
-                      color: isUnlocked ? Colors.white : Colors.white24,
+                      color: isUnlocked ? Colors.white : Colors.black12,
                       width: 1.5,
                     ),
                     boxShadow: [
@@ -94,7 +94,7 @@ class LevelSelectionScreen extends StatelessWidget {
                           )
                         : const Icon(
                             Icons.lock,
-                            color: Colors.white54,
+                            color: Colors.black38,
                             size: 28,
                           ),
                   ),

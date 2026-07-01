@@ -42,7 +42,7 @@ class CustomConfirmDialog extends StatelessWidget {
               style: TextStyle(
                 fontSize: 22,
                 fontWeight: FontWeight.w900,
-                color: isDanger ? Colors.red.shade600 : const Color(0xff6b4226),
+                color: const Color(0xffa16d6d), // Matching settings title color
                 letterSpacing: 1,
               ),
             ),
