@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:vibration/vibration.dart';
+import 'package:flutter/foundation.dart';
 
 class AudioManager {
   // Singleton instance
@@ -17,13 +18,32 @@ class AudioManager {
 
   // Initialize and load bgm
   Future<void> init() async {
-    _bgmPlayer.setReleaseMode(ReleaseMode.loop);
-    
-    // Preload audio into memory for ZERO latency
-    await _tapPlayer.setPlayerMode(PlayerMode.lowLatency);
-    await _tapPlayer.setSourceAsset('audio/tap.wav');
-    
-    await _sfxPlayer.setPlayerMode(PlayerMode.lowLatency);
+    try {
+      final audioContext = AudioContext(
+        iOS: AudioContextIOS(
+          category: AVAudioSessionCategory.ambient,
+          options: const {AVAudioSessionOptions.mixWithOthers},
+        ),
+        android: AudioContextAndroid(
+          isSpeakerphoneOn: false,
+          stayAwake: false,
+          contentType: AndroidContentType.music,
+          usageType: AndroidUsageType.media,
+          audioFocus: AndroidAudioFocus.none,
+        ),
+      );
+      await AudioPlayer.global.setAudioContext(audioContext);
+
+      _bgmPlayer.setReleaseMode(ReleaseMode.loop);
+      
+      // Preload audio into memory for ZERO latency
+      await _tapPlayer.setPlayerMode(PlayerMode.lowLatency);
+      await _tapPlayer.setSourceAsset('audio/tap.wav');
+      
+      await _sfxPlayer.setPlayerMode(PlayerMode.lowLatency);
+    } catch (e) {
+      debugPrint('Error initializing AudioManager: $e');
+    }
   }
 
   void updateSettings({

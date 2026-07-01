@@ -14,7 +14,7 @@ void main() async {
   runApp(
     MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => SettingsProvider(storageService)),
+        ChangeNotifierProvider(create: (_) => SettingsProvider(storageService), lazy: false),
         ChangeNotifierProvider(create: (_) => GameProvider()),
       ],
       child: const CryptogramApp(),
