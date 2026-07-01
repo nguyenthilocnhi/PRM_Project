@@ -129,6 +129,8 @@ class _ClueLetterCell extends StatelessWidget {
           const SizedBox(height: 1),
           Text(
             number.toString(),
+            softWrap: false,
+            overflow: TextOverflow.visible,
             style: TextStyle(
               color: isSelected ? Colors.blue : Colors.blueGrey,
               fontSize: 15,

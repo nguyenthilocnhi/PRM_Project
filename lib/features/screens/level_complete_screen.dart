@@ -6,6 +6,7 @@ import 'package:confetti/confetti.dart';
 import 'package:project/features/game/game_provider.dart';
 import 'package:project/features/screens/game_screen.dart';
 import 'package:project/features/widgets/gradient_background.dart';
+import 'package:project/features/models/level.dart';
 
 class LevelCompleteScreen extends StatefulWidget {
   const LevelCompleteScreen({super.key});
@@ -16,6 +17,7 @@ class LevelCompleteScreen extends StatefulWidget {
 
 class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
   late ConfettiController _confettiController;
+  Level? _completedLevel;
 
   @override
   void initState() {
@@ -24,6 +26,9 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _confettiController.play();
     });
+    
+    // Store the level so it doesn't change during the transition to next level
+    _completedLevel = context.read<GameProvider>().currentLevel;
   }
 
   @override
@@ -35,7 +40,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
   @override
   Widget build(BuildContext context) {
     final provider = context.watch<GameProvider>();
-    final level = provider.currentLevel;
+    final level = _completedLevel;
 
     if (level == null) {
       return const Scaffold(body: Center(child: Text('Error')));
@@ -119,13 +124,11 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                   
                   // Next Level Button
                   ElevatedButton(
-                    onPressed: () async {
-                      await provider.nextLevel();
-                      if (context.mounted) {
-                        Navigator.of(context).pushReplacement(
-                          MaterialPageRoute(builder: (_) => const GameScreen()),
-                        );
-                      }
+                    onPressed: () {
+                      provider.nextLevel();
+                      Navigator.of(context).pushReplacement(
+                        MaterialPageRoute(builder: (_) => const GameScreen()),
+                      );
                     },
                     style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.white,
