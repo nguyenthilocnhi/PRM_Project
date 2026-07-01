@@ -34,16 +34,16 @@ class ClueCard extends StatelessWidget {
       width: double.infinity,
       padding: const EdgeInsets.fromLTRB(10, 10, 10, 12),
       decoration: BoxDecoration(
-        color: isActive ? Colors.white : const Color(0xfffcfbfa),
+        color: isActive ? Colors.white.withValues(alpha: 0.15) : Colors.white.withValues(alpha: 0.05),
         borderRadius: BorderRadius.circular(16),
         border: Border.all(
-          color: isActive ? Colors.blue.shade200 : Colors.black26,
+          color: isActive ? Colors.cyanAccent.withValues(alpha: 0.5) : Colors.white24,
           width: isActive ? 2 : 1,
         ),
         boxShadow: [
           if (isActive)
             BoxShadow(
-              color: Colors.blue.withValues(alpha: 0.15),
+              color: Colors.cyanAccent.withValues(alpha: 0.1),
               blurRadius: 12,
               offset: const Offset(0, 6),
             ),
@@ -55,7 +55,7 @@ class ClueCard extends StatelessWidget {
             clue.clue,
             textAlign: TextAlign.center,
             style: const TextStyle(
-              color: Colors.black87,
+              color: Colors.white,
               fontSize: 16,
               fontWeight: FontWeight.w500,
             ),
@@ -107,13 +107,13 @@ class _ClueLetterCell extends StatelessWidget {
             width: 24,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isSelected ? Colors.yellow.withValues(alpha: 0.3) : Colors.transparent,
+              color: isSelected ? Colors.white.withValues(alpha: 0.2) : Colors.transparent,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
               letter,
               style: const TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 23,
                 fontWeight: FontWeight.w800,
                 height: 1,
@@ -124,13 +124,13 @@ class _ClueLetterCell extends StatelessWidget {
             width: 23,
             height: 2,
             margin: const EdgeInsets.only(top: 3),
-            color: isSelected ? Colors.blue : Colors.black,
+            color: isSelected ? Colors.cyanAccent : Colors.white70,
           ),
           const SizedBox(height: 1),
           Text(
             number.toString(),
             style: TextStyle(
-              color: isSelected ? Colors.blue : Colors.blueGrey,
+              color: isSelected ? Colors.cyanAccent : Colors.white54,
               fontSize: 15,
               fontWeight: FontWeight.w600,
               height: 1,

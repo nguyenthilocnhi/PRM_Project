@@ -3,6 +3,7 @@ import 'package:provider/provider.dart';
 
 import 'package:project/features/game/game_provider.dart';
 import 'package:project/features/screens/game_screen.dart';
+import 'package:project/features/widgets/gradient_background.dart';
 
 class LevelSelectionScreen extends StatelessWidget {
   const LevelSelectionScreen({super.key});
@@ -13,28 +14,29 @@ class LevelSelectionScreen extends StatelessWidget {
     final levels = provider.allLevels;
     final maxUnlocked = provider.maxUnlockedLevel;
 
-    return Scaffold(
-      backgroundColor: const Color(0xff45b7f5),
-      appBar: AppBar(
+    return GradientBackground(
+      child: Scaffold(
         backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.white),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-        title: const Text(
-          'SELECT LEVEL',
-          style: TextStyle(
-            color: Colors.white,
-            fontWeight: FontWeight.w900,
-            letterSpacing: 2,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back, color: Colors.white),
+            onPressed: () => Navigator.of(context).pop(),
           ),
+          title: const Text(
+            'SELECT LEVEL',
+            style: TextStyle(
+              color: Colors.white,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 2,
+            ),
+          ),
+          centerTitle: true,
         ),
-        centerTitle: true,
-      ),
-      body: levels.isEmpty 
-        ? const Center(child: CircularProgressIndicator(color: Colors.white))
-        : GridView.builder(
+        body: levels.isEmpty 
+          ? const Center(child: CircularProgressIndicator(color: Colors.white))
+          : GridView.builder(
             padding: const EdgeInsets.all(20),
             gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: 4,
@@ -58,14 +60,25 @@ class LevelSelectionScreen extends StatelessWidget {
                 } : null,
                 child: Container(
                   decoration: BoxDecoration(
-                    color: isUnlocked ? Colors.white : Colors.black26,
+                    gradient: isUnlocked 
+                      ? const LinearGradient(
+                          colors: [Colors.white, Color(0xffe6f4ff)],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        )
+                      : null,
+                    color: isUnlocked ? null : Colors.white.withValues(alpha: 0.1),
                     borderRadius: BorderRadius.circular(16),
+                    border: Border.all(
+                      color: isUnlocked ? Colors.white : Colors.white24,
+                      width: 1.5,
+                    ),
                     boxShadow: [
                       if (isUnlocked)
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.15),
-                          blurRadius: 4,
-                          offset: const Offset(0, 4),
+                          color: Colors.black.withValues(alpha: 0.2),
+                          blurRadius: 10,
+                          offset: const Offset(0, 5),
                         ),
                     ],
                   ),
@@ -74,8 +87,8 @@ class LevelSelectionScreen extends StatelessWidget {
                         ? Text(
                             '${level.id}',
                             style: const TextStyle(
-                              color: Color(0xff45b7f5),
-                              fontSize: 24,
+                              color: Color(0xff1e3c72),
+                              fontSize: 26,
                               fontWeight: FontWeight.w900,
                             ),
                           )
@@ -89,6 +102,7 @@ class LevelSelectionScreen extends StatelessWidget {
               );
             },
           ),
+      ),
     );
   }
 }

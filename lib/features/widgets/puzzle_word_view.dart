@@ -38,6 +38,7 @@ class PuzzleWordView extends StatelessWidget {
                       style: const TextStyle(
                         fontSize: 23,
                         fontWeight: FontWeight.w800,
+                        color: Colors.white,
                       ),
                     );
                   }
@@ -81,13 +82,13 @@ class _PuzzleLetterCell extends StatelessWidget {
             width: 24,
             alignment: Alignment.center,
             decoration: BoxDecoration(
-              color: isSelected ? Colors.yellow.withValues(alpha: 0.3) : Colors.transparent,
+              color: isSelected ? Colors.white.withValues(alpha: 0.2) : Colors.transparent,
               borderRadius: BorderRadius.circular(4),
             ),
             child: Text(
               letter,
               style: const TextStyle(
-                color: Colors.black,
+                color: Colors.white,
                 fontSize: 23,
                 fontWeight: FontWeight.w800,
                 height: 1,
@@ -98,13 +99,13 @@ class _PuzzleLetterCell extends StatelessWidget {
             width: 21,
             height: 2,
             margin: const EdgeInsets.only(top: 3),
-            color: isSelected ? Colors.blue : Colors.black,
+            color: isSelected ? Colors.cyanAccent : Colors.white70,
           ),
           const SizedBox(height: 1),
           Text(
             number.toString(),
             style: TextStyle(
-              color: isSelected ? Colors.blue : Colors.blueGrey,
+              color: isSelected ? Colors.cyanAccent : Colors.white54,
               fontSize: 15,
               fontWeight: FontWeight.w600,
               height: 1,

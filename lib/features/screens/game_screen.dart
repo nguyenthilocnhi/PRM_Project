@@ -5,6 +5,7 @@ import 'package:project/features/game/game_provider.dart';
 
 import 'package:project/features/widgets/clue_card.dart';
 import 'package:project/features/widgets/custom_confirm_dialog.dart';
+import 'package:project/features/widgets/gradient_background.dart';
 import 'package:project/features/widgets/game_keyboard.dart';
 import 'package:project/features/widgets/puzzle_word_view.dart';
 import 'package:project/features/screens/settings_screen.dart';
@@ -144,38 +145,40 @@ class _GameScreenState extends State<GameScreen> {
       canPop: false,
       onPopInvokedWithResult: (didPop, result) async {
         if (didPop) return;
-        final bool shouldPop = await _showExitConfirmation(context);
-        if (shouldPop && context.mounted) {
+        final shouldExit = await _showExitConfirmation(context);
+        if (shouldExit && context.mounted) {
           Navigator.of(context).pop();
         }
       },
-      child: Scaffold(
-        backgroundColor: const Color(0xfffff8df),
-        body: SafeArea(
-          child: Column(
-            children: [
-              _buildTopHeader(level.title),
-              Expanded(
-                child: Stack(
-                  children: [
-                    SingleChildScrollView(
-                      child: _buildGameContent(provider),
-                    ),
-                    Positioned(
-                      right: 16,
-                      bottom: 16,
-                      child: _buildHintButton(provider),
-                    ),
-                  ],
+      child: GradientBackground(
+        child: Scaffold(
+          backgroundColor: Colors.transparent,
+          body: SafeArea(
+            child: Column(
+              children: [
+                _buildTopHeader(level.title),
+                Expanded(
+                  child: Stack(
+                    children: [
+                      SingleChildScrollView(
+                        child: _buildGameContent(provider),
+                      ),
+                      Positioned(
+                        right: 16,
+                        bottom: 16,
+                        child: _buildHintButton(provider),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-              GameKeyboard(
-                keyStatuses: _calculateKeyStatuses(provider),
-                onKeyTap: _onKeyTap,
-                onLeftArrow: _onLeftArrow,
-                onRightArrow: _onRightArrow,
-              ),
-            ],
+                GameKeyboard(
+                  keyStatuses: _calculateKeyStatuses(provider),
+                  onKeyTap: _onKeyTap,
+                  onLeftArrow: _onLeftArrow,
+                  onRightArrow: _onRightArrow,
+                ),
+              ],
+            ),
           ),
         ),
       ),
@@ -251,17 +254,11 @@ class _GameScreenState extends State<GameScreen> {
                   width: 44,
                   height: 44,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.white.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
+                    border: Border.all(color: Colors.white30, width: 1.5),
                   ),
-                  child: const Icon(Icons.arrow_back, color: Colors.black87),
+                  child: const Icon(Icons.arrow_back, color: Colors.white),
                 ),
               ),
             ),
@@ -271,7 +268,7 @@ class _GameScreenState extends State<GameScreen> {
               title.toUpperCase(),
               textAlign: TextAlign.center,
               style: const TextStyle(
-                color: Color(0xff2d4b85), // Đổi màu chữ sang xanh đậm để nổi bật trên nền sáng
+                color: Colors.white, 
                 fontSize: 24,
                 fontWeight: FontWeight.w900,
                 letterSpacing: 1.2,
@@ -294,17 +291,11 @@ class _GameScreenState extends State<GameScreen> {
                   height: 44,
                   margin: const EdgeInsets.only(right: 8),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.white.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
+                    border: Border.all(color: Colors.white30, width: 1.5),
                   ),
-                  child: const Icon(Icons.info_outline, color: Colors.black87),
+                  child: const Icon(Icons.info_outline, color: Colors.white),
                 ),
               ),
               GestureDetector(
@@ -319,17 +310,11 @@ class _GameScreenState extends State<GameScreen> {
                   width: 44,
                   height: 44,
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: Colors.white.withValues(alpha: 0.15),
                     shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
-                      ),
-                    ],
+                    border: Border.all(color: Colors.white30, width: 1.5),
                   ),
-                  child: const Icon(Icons.settings, color: Colors.black87),
+                  child: const Icon(Icons.settings, color: Colors.white),
                 ),
               ),
             ],

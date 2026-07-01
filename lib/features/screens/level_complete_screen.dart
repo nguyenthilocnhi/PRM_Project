@@ -5,6 +5,7 @@ import 'package:confetti/confetti.dart';
 
 import 'package:project/features/game/game_provider.dart';
 import 'package:project/features/screens/game_screen.dart';
+import 'package:project/features/widgets/gradient_background.dart';
 
 class LevelCompleteScreen extends StatefulWidget {
   const LevelCompleteScreen({super.key});
@@ -43,11 +44,12 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
     final quote = level.quoteLines.join(' ');
     final author = level.author;
 
-    return Scaffold(
-      backgroundColor: const Color(0xff45b7f5),
-      body: Stack(
-        children: [
-          SafeArea(
+    return GradientBackground(
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        body: Stack(
+          children: [
+            SafeArea(
             child: Padding(
               padding: const EdgeInsets.all(24.0),
               child: Column(
@@ -68,11 +70,12 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                   Container(
                     padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
                     decoration: BoxDecoration(
-                      color: Colors.white,
+                      color: Colors.white.withValues(alpha: 0.15),
                       borderRadius: BorderRadius.circular(24),
+                      border: Border.all(color: Colors.white30, width: 1.5),
                       boxShadow: [
                         BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.2),
+                          color: Colors.black.withValues(alpha: 0.1),
                           blurRadius: 20,
                           offset: const Offset(0, 10),
                         ),
@@ -80,7 +83,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                     ),
                     child: Column(
                       children: [
-                        const Icon(Icons.format_quote, size: 60, color: Color(0xff45b7f5)),
+                        const Icon(Icons.format_quote, size: 60, color: Colors.cyanAccent),
                         const SizedBox(height: 16),
                         Text(
                           quote,
@@ -88,7 +91,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                           style: const TextStyle(
                             fontSize: 26,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xff2d4b85),
+                            color: Colors.white,
                             height: 1.4,
                           ),
                         ),
@@ -96,7 +99,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                         Container(
                           width: 50,
                           height: 4,
-                          color: const Color(0xff45b7f5).withValues(alpha: 0.3),
+                          color: Colors.cyanAccent.withValues(alpha: 0.5),
                         ),
                         const SizedBox(height: 24),
                         Text(
@@ -105,7 +108,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                           style: const TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: Colors.grey,
+                            color: Colors.white70,
                             fontStyle: FontStyle.italic,
                           ),
                         ),
@@ -168,6 +171,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
           ),
         ],
       ),
+    ),
     );
   }
 }
