@@ -157,10 +157,7 @@ class SettingsDialog extends StatelessWidget {
 
   Widget _buildRestartLevelButton(BuildContext context) {
     return GestureDetector(
-      onTap: () {
-        context.read<GameProvider>().restartLevel();
-        Navigator.of(context).pop();
-      },
+      onTap: () => _showRestartLevelConfirmation(context),
       child: Container(
         width: double.infinity,
         padding: const EdgeInsets.symmetric(vertical: 12),
@@ -186,12 +183,12 @@ class SettingsDialog extends StatelessWidget {
     showDialog(
       context: context,
       builder: (ctx) => AlertDialog(
-        title: const Text('Reset All Progress?', style: TextStyle(color: Colors.red)),
-        content: const Text('Are you sure you want to reset all your progress? This will lock all levels and clear your hints. This action cannot be undone.'),
+        title: const Text('Xác nhận reset', style: TextStyle(color: Colors.red)),
+        content: const Text('Bạn có chắc chắn muốn xóa hết tiến trình không? Hành động này sẽ khóa lại tất cả các màn và xóa gợi ý của bạn.'),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Cancel', style: TextStyle(color: Colors.black87)),
+            child: const Text('Hủy', style: TextStyle(color: Colors.black87)),
           ),
           TextButton(
             onPressed: () async {
@@ -208,7 +205,31 @@ class SettingsDialog extends StatelessWidget {
                 );
               }
             },
-            child: const Text('RESET', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+            child: const Text('XÓA', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
+          ),
+        ],
+      ),
+    );
+  }
+
+  void _showRestartLevelConfirmation(BuildContext context) {
+    showDialog(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Reset vòng chơi?'),
+        content: const Text('Bạn có chắc chắn muốn xóa hết tiến trình của vòng này không?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(),
+            child: const Text('Hủy'),
+          ),
+          TextButton(
+            onPressed: () {
+              context.read<GameProvider>().restartLevel();
+              Navigator.of(ctx).pop(); // Close dialog
+              Navigator.of(context).pop(); // Close settings
+            },
+            child: const Text('Đồng ý', style: TextStyle(color: Colors.red)),
           ),
         ],
       ),

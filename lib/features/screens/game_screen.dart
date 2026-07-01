@@ -138,37 +138,87 @@ class _GameScreenState extends State<GameScreen> {
       }
     });
 
-    return Scaffold(
-      backgroundColor: const Color(0xfffff8df),
-      body: SafeArea(
-        child: Column(
-          children: [
-            _buildTopHeader(level.title),
-            Expanded(
-              child: Stack(
-                children: [
-                  SingleChildScrollView(
-                    child: _buildGameContent(provider),
-                  ),
-                  Positioned(
-                    right: 16,
-                    bottom: 16,
-                    child: _buildHintButton(provider),
-                  ),
-                ],
+    return PopScope(
+      canPop: false,
+      onPopInvokedWithResult: (didPop, result) async {
+        if (didPop) return;
+        final bool shouldPop = await _showExitConfirmation(context);
+        if (shouldPop && context.mounted) {
+          Navigator.of(context).pop();
+        }
+      },
+      child: Scaffold(
+        backgroundColor: const Color(0xfffff8df),
+        body: SafeArea(
+          child: Column(
+            children: [
+              _buildTopHeader(level.title),
+              Expanded(
+                child: Stack(
+                  children: [
+                    SingleChildScrollView(
+                      child: _buildGameContent(provider),
+                    ),
+                    Positioned(
+                      right: 16,
+                      bottom: 16,
+                      child: _buildHintButton(provider),
+                    ),
+                  ],
+                ),
               ),
-            ),
-            GameKeyboard(
-              usedLetters: provider.userInputs.values.toSet(),
-              disabledLetters: List<String>.from(level.disabledLetters),
-              onKeyTap: _onKeyTap,
-              onLeftArrow: _onLeftArrow,
-              onRightArrow: _onRightArrow,
-            ),
-          ],
+              GameKeyboard(
+                keyStatuses: _calculateKeyStatuses(provider),
+                onKeyTap: _onKeyTap,
+                onLeftArrow: _onLeftArrow,
+                onRightArrow: _onRightArrow,
+              ),
+            ],
+          ),
         ),
       ),
     );
+  }
+
+  Map<String, KeyStatus> _calculateKeyStatuses(GameProvider provider) {
+    final Map<String, KeyStatus> statuses = {};
+    final level = provider.currentLevel;
+    if (level == null) return statuses;
+
+    final allLetters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.split('');
+    for (var letter in allLetters) {
+      if (level.disabledLetters.contains(letter)) {
+        statuses[letter] = KeyStatus.disabled;
+      } else if (provider.isLetterFullySolved(letter)) {
+        statuses[letter] = KeyStatus.fullyCorrect;
+      } else if (provider.isLetterPartiallySolved(letter)) {
+        statuses[letter] = KeyStatus.partiallyCorrect;
+      } else {
+        statuses[letter] = KeyStatus.none;
+      }
+    }
+    return statuses;
+  }
+
+  Future<bool> _showExitConfirmation(BuildContext context) async {
+    final result = await showDialog<bool>(
+      context: context,
+      builder: (ctx) => AlertDialog(
+        title: const Text('Xác nhận thoát'),
+        content: const Text('Bạn có chắc chắn muốn thoát không?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(false),
+            child: const Text('Hủy'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(ctx).pop(true),
+            child: const Text('Thoát'),
+          ),
+        ],
+      ),
+    );
+    return result ?? false;
   }
 
   void _showGameOverDialog(BuildContext context, GameProvider provider) {
@@ -202,7 +252,7 @@ class _GameScreenState extends State<GameScreen> {
             child: Align(
               alignment: Alignment.centerLeft,
               child: GestureDetector(
-                onTap: () => Navigator.of(context).pop(),
+                onTap: () => Navigator.of(context).maybePop(),
                 child: Container(
                   width: 44,
                   height: 44,

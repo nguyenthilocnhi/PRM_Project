@@ -43,6 +43,28 @@ class GameProvider extends ChangeNotifier {
   int get errorsCount => _errorsCount;
   int get secondsUntilNextHint => _secondsUntilNextHint;
 
+  // Task 3: Logic to check letter status for Keyboard UI
+  bool isLetterFullySolved(String letter) {
+    if (_currentLevel == null) return false;
+    final number = _cipherMap[letter];
+    if (number == null) return false;
+    
+    // Check if this letter is actually used in the puzzle
+    if (!_currentLevel!.usedLetters.contains(letter)) return false;
+
+    // A letter is fully solved if it exists in userInputs and matches the cipherMap
+    // Since we only allow correct inputs in inputLetter, we just need to check if it's present
+    return _userInputs.containsKey(number);
+  }
+
+  bool isLetterPartiallySolved(String letter) {
+    // In the current logic, since inputLetter only accepts correct letters,
+    // a letter is either fully solved (exists in userInputs) or not solved at all.
+    // However, if the game allowed incorrect inputs, we would differentiate here.
+    // For now, this will return false as "fully solved" covers the correct case.
+    return false; 
+  }
+
   GameProvider() {
     loadInitialData();
   }
@@ -285,8 +307,11 @@ class GameProvider extends ChangeNotifier {
       if (!isWin) break;
     }
 
-    _isLevelComplete = isWin;
-    if (isWin) {
+    if (isWin && !_isLevelComplete) {
+      _isLevelComplete = true;
+      _hintCount++; // Task 1: Increment hint count on win
+      _storageService.saveHints(_hintCount);
+
       AudioManager().playSuccessSound();
       if (_currentLevel!.id >= _maxUnlockedLevel && _currentLevel!.id < _allLevels.length) {
         _maxUnlockedLevel = _currentLevel!.id + 1;

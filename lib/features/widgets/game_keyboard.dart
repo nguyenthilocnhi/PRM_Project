@@ -1,16 +1,16 @@
 import 'package:flutter/material.dart';
 
+enum KeyStatus { none, partiallyCorrect, fullyCorrect, disabled }
+
 class GameKeyboard extends StatelessWidget {
-  final Set<String> usedLetters;
-  final List<String> disabledLetters;
+  final Map<String, KeyStatus> keyStatuses;
   final Function(String) onKeyTap;
   final VoidCallback onLeftArrow;
   final VoidCallback onRightArrow;
 
   const GameKeyboard({
     super.key,
-    required this.usedLetters,
-    required this.disabledLetters,
+    required this.keyStatuses,
     required this.onKeyTap,
     required this.onLeftArrow,
     required this.onRightArrow,
@@ -45,9 +45,8 @@ class GameKeyboard extends StatelessWidget {
                   if (rowIndex == 1) const Spacer(flex: 5),
                   if (rowIndex == 2) _arrowKey(Icons.skip_previous, onLeftArrow),
                   ...row.split('').map((letter) {
-                    final bool isUsed = usedLetters.contains(letter);
-                    final bool isDisabled = disabledLetters.contains(letter);
-                    final bool isActuallyDisabled = isDisabled || isUsed;
+                    final status = keyStatuses[letter] ?? KeyStatus.none;
+                    final bool isActuallyDisabled = status == KeyStatus.disabled || status == KeyStatus.fullyCorrect;
 
                     return Expanded(
                       flex: 10,
@@ -55,8 +54,7 @@ class GameKeyboard extends StatelessWidget {
                         onTap: isActuallyDisabled ? null : () => onKeyTap(letter),
                         child: _KeyboardKey(
                           letter: letter,
-                          isUsed: isUsed,
-                          isDisabled: isActuallyDisabled,
+                          status: status,
                         ),
                       ),
                     );
@@ -100,13 +98,11 @@ class GameKeyboard extends StatelessWidget {
 
 class _KeyboardKey extends StatelessWidget {
   final String letter;
-  final bool isUsed;
-  final bool isDisabled;
+  final KeyStatus status;
 
   const _KeyboardKey({
     required this.letter,
-    required this.isUsed,
-    required this.isDisabled,
+    required this.status,
   });
 
   @override
@@ -115,14 +111,27 @@ class _KeyboardKey extends StatelessWidget {
     Color textColor = Colors.black87;
     double elevationOffset = 3.0;
 
-    if (isUsed) {
-      backgroundColor = const Color(0xffe6f8ec);
-      textColor = const Color(0xff18b82e);
-      elevationOffset = 1.0;
-    } else if (isDisabled) {
-      backgroundColor = const Color(0xffc5cbd1);
-      textColor = Colors.grey.shade500;
-      elevationOffset = 0.0;
+    switch (status) {
+      case KeyStatus.fullyCorrect:
+        backgroundColor = const Color(0xffc5cbd1); // Xám (Completed)
+        textColor = Colors.grey.shade700;
+        elevationOffset = 0.0;
+        break;
+      case KeyStatus.partiallyCorrect:
+        backgroundColor = const Color(0xffe6f8ec); // Xanh lá (Partial/Correct in place)
+        textColor = const Color(0xff18b82e);
+        elevationOffset = 1.0;
+        break;
+      case KeyStatus.disabled:
+        backgroundColor = const Color(0xffc5cbd1).withValues(alpha: 0.5);
+        textColor = Colors.grey.shade400;
+        elevationOffset = 0.0;
+        break;
+      case KeyStatus.none:
+        backgroundColor = Colors.white;
+        textColor = Colors.black87;
+        elevationOffset = 3.0;
+        break;
     }
 
     return Container(
