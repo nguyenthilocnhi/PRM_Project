@@ -21,6 +21,9 @@ class GameScreen extends StatefulWidget {
 
 class _GameScreenState extends State<GameScreen> {
   int? _selectedNumber;
+  bool _isQuoteFocused = false;
+  int? _focusedClueIndex;
+  int? _focusedQuoteIndex;
   bool _isDialogShowing = false;
   bool _isGameOverDialogShowing = false;
 
@@ -34,9 +37,16 @@ class _GameScreenState extends State<GameScreen> {
     super.dispose();
   }
 
-  void _onNumberSelected(int number) {
+  void _onNumberSelected(int number, {bool isQuote = false, int? clueIndex, int? quoteIndex}) {
     setState(() {
       _selectedNumber = number;
+      _isQuoteFocused = isQuote;
+      if (clueIndex != null) {
+        _focusedClueIndex = clueIndex;
+      }
+      if (quoteIndex != null) {
+        _focusedQuoteIndex = quoteIndex;
+      }
     });
   }
 
@@ -59,28 +69,52 @@ class _GameScreenState extends State<GameScreen> {
     final level = provider.currentLevel;
     if (level == null) return;
     
-    // Get visual order of empty cells
     final List<int> emptyCells = [];
-    for (String line in level.quoteLines) {
-      for (String word in line.split(' ')) {
-        for (String letter in word.split('')) {
-          final number = provider.cipherMap[letter];
-          if (number != null && !provider.userInputs.containsKey(number) && !emptyCells.contains(number)) {
-             emptyCells.add(number);
+    
+    void addQuoteCells() {
+      List<int> quoteNumbers = [];
+      for (String line in level.quoteLines) {
+        for (String word in line.split(' ')) {
+          for (String letter in word.split('')) {
+            final number = provider.cipherMap[letter];
+            if (number != null) {
+               quoteNumbers.add(number);
+            }
           }
+        }
+      }
+      
+      int startIndex = _focusedQuoteIndex ?? 0;
+      for (int i = 0; i < quoteNumbers.length; i++) {
+        int idx = (startIndex + i) % quoteNumbers.length;
+        int number = quoteNumbers[idx];
+        if (!provider.userInputs.containsKey(number) && !emptyCells.contains(number)) {
+          emptyCells.add(number);
         }
       }
     }
     
-    // Also add any empty cells from clues that aren't in the quote
-    for (var clue in level.clues) {
-      for (int i = 0; i < clue.answer.length; i++) {
-          final letter = clue.answer[i];
-          final number = provider.cipherMap[letter];
-          if (number != null && !provider.userInputs.containsKey(number) && !emptyCells.contains(number)) {
-             emptyCells.add(number);
-          }
+    void addClueCells() {
+      int startIndex = _focusedClueIndex ?? 0;
+      for (int c = 0; c < level.clues.length; c++) {
+        int idx = (startIndex + c) % level.clues.length;
+        var clue = level.clues[idx];
+        for (int i = 0; i < clue.answer.length; i++) {
+            final letter = clue.answer[i];
+            final number = provider.cipherMap[letter];
+            if (number != null && !provider.userInputs.containsKey(number) && !emptyCells.contains(number)) {
+               emptyCells.add(number);
+            }
+        }
       }
+    }
+
+    if (_isQuoteFocused) {
+      addQuoteCells();
+      addClueCells();
+    } else {
+      addClueCells();
+      addQuoteCells();
     }
     
     if (emptyCells.isEmpty) return;
@@ -91,12 +125,11 @@ class _GameScreenState extends State<GameScreen> {
     }
 
     if (currentIndex == -1) {
-      // If current selected is not in empty list (or null), just select the first one
-      _onNumberSelected(emptyCells.first);
+      _onNumberSelected(emptyCells.first, isQuote: _isQuoteFocused);
     } else {
       int nextIndex = (currentIndex + direction) % emptyCells.length;
       if (nextIndex < 0) nextIndex += emptyCells.length;
-      _onNumberSelected(emptyCells[nextIndex]);
+      _onNumberSelected(emptyCells[nextIndex], isQuote: _isQuoteFocused);
     }
   }
 
@@ -388,7 +421,7 @@ class _GameScreenState extends State<GameScreen> {
             userGuesses: provider.userInputs,
             cipherMap: provider.cipherMap,
             selectedNumber: _selectedNumber,
-            onNumberSelected: _onNumberSelected,
+            onNumberSelected: (n, index) => _onNumberSelected(n, isQuote: true, quoteIndex: index),
           ),
 
           const SizedBox(height: 16),
@@ -397,7 +430,9 @@ class _GameScreenState extends State<GameScreen> {
 
           const SizedBox(height: 12),
 
-          ...level.clues.map((clue) {
+          ...level.clues.asMap().entries.map((entry) {
+            final idx = entry.key;
+            final clue = entry.value;
             return Padding(
               padding: const EdgeInsets.only(bottom: 12),
               child: ClueCard(
@@ -405,7 +440,7 @@ class _GameScreenState extends State<GameScreen> {
                 userGuesses: provider.userInputs,
                 cipherMap: provider.cipherMap,
                 selectedNumber: _selectedNumber,
-                onNumberSelected: _onNumberSelected,
+                onNumberSelected: (n) => _onNumberSelected(n, isQuote: false, clueIndex: idx),
               ),
             );
           }),

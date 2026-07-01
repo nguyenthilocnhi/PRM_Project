@@ -5,7 +5,7 @@ class PuzzleWordView extends StatelessWidget {
   final Map<int, String> userGuesses;
   final Map<String, int> cipherMap;
   final int? selectedNumber;
-  final Function(int) onNumberSelected;
+  final Function(int, int) onNumberSelected;
 
   const PuzzleWordView({
     super.key,
@@ -18,6 +18,7 @@ class PuzzleWordView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    int linearIndex = 0;
     return Column(
       children: lines.map((line) {
         return Padding(
@@ -42,9 +43,10 @@ class PuzzleWordView extends StatelessWidget {
                       ),
                     );
                   }
+                  final int currentIndex = linearIndex++;
                   final bool isFilled = userGuesses.containsKey(number);
                   return GestureDetector(
-                    onTap: isFilled ? null : () => onNumberSelected(number),
+                    onTap: isFilled ? null : () => onNumberSelected(number, currentIndex),
                     child: _PuzzleLetterCell(
                       letter: userGuesses[number] ?? '',
                       number: number,
