@@ -4,6 +4,7 @@ import 'package:project/features/settings/settings_provider.dart';
 import 'package:project/features/game/game_provider.dart';
 import 'package:project/features/game/storage_service.dart';
 import 'package:project/features/screens/home_screen.dart';
+import 'package:project/features/widgets/custom_confirm_dialog.dart';
 
 class SettingsDialog extends StatelessWidget {
   final bool isGameScreen;
@@ -182,32 +183,27 @@ class SettingsDialog extends StatelessWidget {
   void _showResetDialog(BuildContext context) {
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Xác nhận reset', style: TextStyle(color: Colors.red)),
-        content: const Text('Bạn có chắc chắn muốn xóa hết tiến trình không? Hành động này sẽ khóa lại tất cả các màn và xóa gợi ý của bạn.'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Hủy', style: TextStyle(color: Colors.black87)),
-          ),
-          TextButton(
-            onPressed: () async {
-              final navigator = Navigator.of(context);
-              Navigator.of(ctx).pop();
-              final storage = StorageService();
-              await storage.clearAllData();
-              
-              if (context.mounted) {
-                await context.read<GameProvider>().loadInitialData();
-                navigator.pushAndRemoveUntil(
-                  MaterialPageRoute(builder: (_) => const HomeScreen()),
-                  (route) => false,
-                );
-              }
-            },
-            child: const Text('XÓA', style: TextStyle(color: Colors.red, fontWeight: FontWeight.bold)),
-          ),
-        ],
+      builder: (ctx) => CustomConfirmDialog(
+        title: 'Reset Progress',
+        content: 'Are you sure you want to reset all your progress? This will lock all levels and clear your hints.',
+        confirmText: 'RESET',
+        cancelText: 'CANCEL',
+        isDanger: true,
+        onCancel: () => Navigator.of(ctx).pop(),
+        onConfirm: () async {
+          final navigator = Navigator.of(context);
+          Navigator.of(ctx).pop();
+          final storage = StorageService();
+          await storage.clearAllData();
+          
+          if (context.mounted) {
+            await context.read<GameProvider>().loadInitialData();
+            navigator.pushAndRemoveUntil(
+              MaterialPageRoute(builder: (_) => const HomeScreen()),
+              (route) => false,
+            );
+          }
+        },
       ),
     );
   }
@@ -215,23 +211,18 @@ class SettingsDialog extends StatelessWidget {
   void _showRestartLevelConfirmation(BuildContext context) {
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Reset vòng chơi?'),
-        content: const Text('Bạn có chắc chắn muốn xóa hết tiến trình của vòng này không?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(),
-            child: const Text('Hủy'),
-          ),
-          TextButton(
-            onPressed: () {
-              context.read<GameProvider>().restartLevel();
-              Navigator.of(ctx).pop(); // Close dialog
-              Navigator.of(context).pop(); // Close settings
-            },
-            child: const Text('Đồng ý', style: TextStyle(color: Colors.red)),
-          ),
-        ],
+      builder: (ctx) => CustomConfirmDialog(
+        title: 'Restart Level',
+        content: 'Are you sure you want to clear your progress for this level?',
+        confirmText: 'RESTART',
+        cancelText: 'CANCEL',
+        isDanger: true,
+        onCancel: () => Navigator.of(ctx).pop(),
+        onConfirm: () {
+          context.read<GameProvider>().restartLevel();
+          Navigator.of(ctx).pop(); // Close dialog
+          Navigator.of(context).pop(); // Close settings
+        },
       ),
     );
   }

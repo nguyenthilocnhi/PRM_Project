@@ -2,12 +2,14 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:project/features/game/game_provider.dart';
-import 'package:project/features/screens/level_complete_screen.dart';
+
 import 'package:project/features/widgets/clue_card.dart';
+import 'package:project/features/widgets/custom_confirm_dialog.dart';
 import 'package:project/features/widgets/game_keyboard.dart';
 import 'package:project/features/widgets/puzzle_word_view.dart';
 import 'package:project/features/screens/settings_screen.dart';
 import 'package:project/features/screens/tutorial_dialog.dart';
+import 'package:project/features/screens/level_complete_screen.dart';
 
 class GameScreen extends StatefulWidget {
   const GameScreen({super.key});
@@ -203,19 +205,14 @@ class _GameScreenState extends State<GameScreen> {
   Future<bool> _showExitConfirmation(BuildContext context) async {
     final result = await showDialog<bool>(
       context: context,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Xác nhận thoát'),
-        content: const Text('Bạn có chắc chắn muốn thoát không?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(false),
-            child: const Text('Hủy'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(ctx).pop(true),
-            child: const Text('Thoát'),
-          ),
-        ],
+      builder: (ctx) => CustomConfirmDialog(
+        title: 'Exit Game',
+        content: 'Are you sure you want to exit? Your progress will be saved.',
+        confirmText: 'EXIT',
+        cancelText: 'CANCEL',
+        isDanger: true,
+        onCancel: () => Navigator.of(ctx).pop(false),
+        onConfirm: () => Navigator.of(ctx).pop(true),
       ),
     );
     return result ?? false;
@@ -225,19 +222,16 @@ class _GameScreenState extends State<GameScreen> {
     showDialog(
       context: context,
       barrierDismissible: false,
-      builder: (ctx) => AlertDialog(
-        title: const Text('Game Over', style: TextStyle(color: Colors.red)),
-        content: const Text('You made 3 mistakes. Try again!'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-              _isGameOverDialogShowing = false;
-              provider.restartLevel();
-            },
-            child: const Text('Try Again'),
-          ),
-        ],
+      builder: (ctx) => CustomConfirmDialog(
+        title: 'Game Over',
+        content: 'You made 3 mistakes. Try again!',
+        confirmText: 'TRY AGAIN',
+        isDanger: true,
+        onConfirm: () {
+          Navigator.of(ctx).pop();
+          _isGameOverDialogShowing = false;
+          provider.restartLevel();
+        },
       ),
     );
   }
