@@ -326,25 +326,39 @@ class GameProvider extends ChangeNotifier {
   void _checkWinCondition() {
     if (_currentLevel == null) return;
     
-    bool isWin = true;
-    for (int c = 0; c < _currentLevel!.clues.length; c++) {
-      final clue = _currentLevel!.clues[c];
-      for (int l = 0; l < clue.answer.length; l++) {
-        final expectedLetter = clue.answer[l];
-        final number = _cipherMap[expectedLetter];
-        
-        if (number == null) {
-          isWin = false;
-          break;
-        }
-
-        final userLetter = _userInputs[number];
-        if (userLetter != expectedLetter) {
-          isWin = false;
-          break;
+    final requiredLetters = <String>{};
+    
+    for (String line in _currentLevel!.quoteLines) {
+      for (int i = 0; i < line.length; i++) {
+        final char = line[i].toUpperCase();
+        if (RegExp(r'[A-Z]').hasMatch(char)) {
+          requiredLetters.add(char);
         }
       }
-      if (!isWin) break;
+    }
+    
+    for (var clue in _currentLevel!.clues) {
+      for (int i = 0; i < clue.answer.length; i++) {
+        final char = clue.answer[i].toUpperCase();
+        if (RegExp(r'[A-Z]').hasMatch(char)) {
+          requiredLetters.add(char);
+        }
+      }
+    }
+
+    bool isWin = true;
+    for (String expectedLetter in requiredLetters) {
+      final number = _cipherMap[expectedLetter];
+      if (number == null) {
+        isWin = false;
+        break;
+      }
+      
+      final userLetter = _userInputs[number];
+      if (userLetter != expectedLetter) {
+        isWin = false;
+        break;
+      }
     }
 
     if (isWin && !_isLevelComplete) {
