@@ -7,6 +7,7 @@ class StorageService {
   static const String _keyHints = 'hint_count';
   static const String _keyLastHintTime = 'last_hint_time';
   static const String _keyMaxUnlockedLevel = 'max_unlocked_level';
+  static const String _keyRemainingTime = 'remaining_time_level_';
   
   static const String _keySettingMusic = 'setting_music';
   static const String _keySettingSfx = 'setting_sfx';
@@ -95,6 +96,24 @@ class StorageService {
     final prefs = await SharedPreferences.getInstance();
     final stringMap = userInputs.map((k, v) => MapEntry(k.toString(), v));
     await prefs.setString('$_keyPrefixProgress$levelId', jsonEncode(stringMap));
+  }
+
+  // Save remaining time for a specific level.
+  Future<void> saveRemainingTime(int levelId, int remainingSeconds) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setInt('$_keyRemainingTime$levelId', remainingSeconds);
+  }
+
+  // Load remaining time for a specific level.
+  Future<int?> loadRemainingTime(int levelId) async {
+    final prefs = await SharedPreferences.getInstance();
+    return prefs.getInt('$_keyRemainingTime$levelId');
+  }
+
+  // Clear remaining time (e.g. when level is complete or restarted)
+  Future<void> clearRemainingTime(int levelId) async {
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.remove('$_keyRemainingTime$levelId');
   }
 
   // Load progress for a specific level.

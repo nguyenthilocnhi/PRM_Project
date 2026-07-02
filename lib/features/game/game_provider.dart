@@ -23,6 +23,7 @@ class GameProvider extends ChangeNotifier {
   bool _isLoading = true;
   bool _isLevelComplete = false;
   bool _isGameOver = false;
+  bool _isTimeUp = false;
   int _hintCount = 3;
   int _maxUnlockedLevel = 1;
   int _errorsCount = 0;
@@ -31,6 +32,9 @@ class GameProvider extends ChangeNotifier {
   Timer? _hintTimer;
   int _secondsUntilNextHint = 0;
 
+  int _remainingSeconds = 120;
+  Timer? _levelTimer;
+
   List<Level> get allLevels => _allLevels;
   Level? get currentLevel => _currentLevel;
   Map<String, int> get cipherMap => _cipherMap;
@@ -38,10 +42,12 @@ class GameProvider extends ChangeNotifier {
   bool get isLoading => _isLoading;
   bool get isLevelComplete => _isLevelComplete;
   bool get isGameOver => _isGameOver;
+  bool get isTimeUp => _isTimeUp;
   int get hintCount => _hintCount;
   int get maxUnlockedLevel => _maxUnlockedLevel;
   int get errorsCount => _errorsCount;
   int get secondsUntilNextHint => _secondsUntilNextHint;
+  int get remainingSeconds => _remainingSeconds;
 
   // Task 3: Logic to check letter status for Keyboard UI
   bool isLetterFullySolved(String letter) {
@@ -135,6 +141,31 @@ class GameProvider extends ChangeNotifier {
     });
   }
 
+  void _startLevelTimer() {
+    _levelTimer?.cancel();
+    _levelTimer = Timer.periodic(const Duration(seconds: 1), (timer) {
+      if (_isLevelComplete || _isGameOver) {
+        timer.cancel();
+        return;
+      }
+      if (_remainingSeconds > 0) {
+        _remainingSeconds--;
+        if (_remainingSeconds <= 10 && _remainingSeconds > 0) {
+          AudioManager().playTickVibration();
+        }
+        if (_currentLevel != null) {
+          _storageService.saveRemainingTime(_currentLevel!.id, _remainingSeconds);
+        }
+        notifyListeners();
+      } else {
+        timer.cancel();
+        _isGameOver = true;
+        _isTimeUp = true;
+        notifyListeners();
+      }
+    });
+  }
+
   Future<void> loadLevel(int levelId) async {
     if (_allLevels.isEmpty) return;
 
@@ -143,6 +174,7 @@ class GameProvider extends ChangeNotifier {
     _isLoading = true;
     _isLevelComplete = false;
     _isGameOver = false;
+    _isTimeUp = false;
     _errorsCount = 0;
     notifyListeners();
 
@@ -161,10 +193,16 @@ class GameProvider extends ChangeNotifier {
     if (_isLevelComplete) {
       _userInputs.clear();
       _isLevelComplete = false;
+      _remainingSeconds = 120;
       await _storageService.saveProgress(_currentLevel!.id, _userInputs);
+      await _storageService.clearRemainingTime(_currentLevel!.id);
+    } else {
+      final savedTime = await _storageService.loadRemainingTime(_currentLevel!.id);
+      _remainingSeconds = savedTime ?? 120;
     }
 
     _isLoading = false;
+    _startLevelTimer();
     notifyListeners();
   }
 
@@ -332,18 +370,24 @@ class GameProvider extends ChangeNotifier {
 
   Future<void> restartLevel() async {
     if (_currentLevel == null) return;
-    AudioManager().playBgm(); // Ensure BGM is playing
+    
     _userInputs.clear();
     await _storageService.saveProgress(_currentLevel!.id, _userInputs);
-    _errorsCount = 0;
+    
     _isGameOver = false;
+    _isTimeUp = false;
+    _errorsCount = 0;
     _isLevelComplete = false;
+    _remainingSeconds = 120;
+    await _storageService.saveRemainingTime(_currentLevel!.id, _remainingSeconds);
+    _startLevelTimer();
     notifyListeners();
   }
 
   @override
   void dispose() {
     _hintTimer?.cancel();
+    _levelTimer?.cancel();
     super.dispose();
   }
 }

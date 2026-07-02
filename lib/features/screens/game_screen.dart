@@ -189,7 +189,7 @@ class _GameScreenState extends State<GameScreen> {
           body: SafeArea(
             child: Column(
               children: [
-                _buildTopHeader(level.title),
+                _buildTopHeader(),
                 Expanded(
                   child: Container(
                     decoration: const BoxDecoration(
@@ -275,7 +275,7 @@ class _GameScreenState extends State<GameScreen> {
       barrierDismissible: false,
       builder: (ctx) => CustomConfirmDialog(
         title: 'Game Over',
-        content: 'You made 3 mistakes. Try again!',
+        content: provider.isTimeUp ? 'Time is up. Try again!' : 'You made 3 mistakes. Try again!',
         confirmText: 'TRY AGAIN',
         isDanger: true,
         onConfirm: () {
@@ -287,110 +287,129 @@ class _GameScreenState extends State<GameScreen> {
     );
   }
 
-  Widget _buildTopHeader(String title) {
+  Widget _buildTopHeader() {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+      padding: const EdgeInsets.fromLTRB(16, 12, 16, 12),
       child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            width: 96,
-            child: Align(
-              alignment: Alignment.centerLeft,
-              child: GestureDetector(
-                onTap: () => Navigator.of(context).maybePop(),
-                child: Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () => Navigator.of(context).maybePop(),
+                    child: Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
-                    ],
+                      child: const Icon(Icons.arrow_back, color: Colors.black87),
+                    ),
                   ),
-                  child: const Icon(Icons.arrow_back, color: Colors.black87),
-                ),
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 6),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withValues(alpha: 0.05),
+                          blurRadius: 4,
+                          offset: const Offset(0, 2),
+                        ),
+                      ],
+                    ),
+                    child: Builder(
+                      builder: (context) {
+                        final remainingSeconds = context.select<GameProvider, int>((p) => p.remainingSeconds);
+                        final isWarning = remainingSeconds <= 10 && remainingSeconds > 0;
+                        final color = isWarning ? Colors.red : Colors.black87;
+                        return Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: [
+                            Icon(Icons.timer_outlined, size: 20, color: color),
+                            const SizedBox(width: 4),
+                            Text(
+                              '${(remainingSeconds ~/ 60).toString().padLeft(2, '0')}:${(remainingSeconds % 60).toString().padLeft(2, '0')}',
+                              style: TextStyle(fontWeight: FontWeight.bold, color: color, fontSize: 16),
+                            ),
+                          ],
+                        );
+                      }
+                    ),
+                  ),
+                ],
               ),
-            ),
-          ),
-          Expanded(
-            child: Text(
-              title.toUpperCase(),
-              textAlign: TextAlign.center,
-              style: const TextStyle(
-                color: Color(0xff2d4b85), 
-                fontSize: 24,
-                fontWeight: FontWeight.w900,
-                letterSpacing: 1.2,
-              ),
-            ),
-          ),
-          Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    barrierColor: Colors.black54,
-                    builder: (context) => const TutorialDialog(),
-                  );
-                },
-                child: Container(
-                  width: 44,
-                  height: 44,
-                  margin: const EdgeInsets.only(right: 8),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        barrierColor: Colors.black54,
+                        builder: (context) => const TutorialDialog(),
+                      );
+                    },
+                    child: Container(
+                      width: 44,
+                      height: 44,
+                      margin: const EdgeInsets.only(right: 8),
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
-                    ],
+                      child: const Icon(Icons.info_outline, color: Colors.black87),
+                    ),
                   ),
-                  child: const Icon(Icons.info_outline, color: Colors.black87),
-                ),
-              ),
-              GestureDetector(
-                onTap: () {
-                  showDialog(
-                    context: context,
-                    barrierColor: Colors.black54,
-                    builder: (context) => const SettingsDialog(isGameScreen: true),
-                  );
-                },
-                child: Container(
-                  width: 44,
-                  height: 44,
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    shape: BoxShape.circle,
-                    boxShadow: [
-                      BoxShadow(
-                        color: Colors.black.withValues(alpha: 0.05),
-                        blurRadius: 4,
-                        offset: const Offset(0, 2),
+                  GestureDetector(
+                    onTap: () {
+                      showDialog(
+                        context: context,
+                        barrierColor: Colors.black54,
+                        builder: (context) => const SettingsDialog(isGameScreen: true),
+                      );
+                    },
+                    child: Container(
+                      width: 44,
+                      height: 44,
+                      decoration: BoxDecoration(
+                        color: Colors.white,
+                        shape: BoxShape.circle,
+                        boxShadow: [
+                          BoxShadow(
+                            color: Colors.black.withValues(alpha: 0.05),
+                            blurRadius: 4,
+                            offset: const Offset(0, 2),
+                          ),
+                        ],
                       ),
-                    ],
+                      child: const Icon(Icons.settings_outlined, color: Colors.black87),
+                    ),
                   ),
-                  child: const Icon(Icons.settings, color: Colors.black87),
-                ),
+                ],
               ),
             ],
           ),
-        ],
-      ),
     );
   }
-
-
 
   Widget _buildGameContent(GameProvider provider) {
     final level = provider.currentLevel!;
@@ -398,7 +417,17 @@ class _GameScreenState extends State<GameScreen> {
       padding: const EdgeInsets.fromLTRB(14, 16, 14, 12),
       child: Column(
         children: [
-          const SizedBox(height: 10),
+          Text(
+            level.title.toUpperCase(),
+            textAlign: TextAlign.center,
+            style: const TextStyle(
+              color: Color(0xff2d4b85), 
+              fontSize: 24,
+              fontWeight: FontWeight.w900,
+              letterSpacing: 1.2,
+            ),
+          ),
+          const SizedBox(height: 20),
 
           _buildStrikes(provider.errorsCount),
 

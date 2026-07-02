@@ -130,43 +130,47 @@ class _TutorialDialogState extends State<TutorialDialog> {
   }) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            height: 160,
-            width: double.infinity,
-            decoration: BoxDecoration(
-              color: Colors.white,
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: Colors.grey.shade300),
-              boxShadow: [
-                BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 4)),
-              ],
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const SizedBox(height: 10), // extra padding for scroll
+            Container(
+              height: 160,
+              width: double.infinity,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(16),
+                border: Border.all(color: Colors.grey.shade300),
+                boxShadow: [
+                  BoxShadow(color: Colors.black.withValues(alpha: 0.05), blurRadius: 10, offset: const Offset(0, 4)),
+                ],
+              ),
+              child: Center(child: imageWidget),
             ),
-            child: Center(child: imageWidget),
-          ),
-          const SizedBox(height: 32),
-          Text(
-            title,
-            style: const TextStyle(
-              fontSize: 20,
-              fontWeight: FontWeight.bold,
-              color: Colors.black87,
+            const SizedBox(height: 24),
+            Text(
+              title,
+              style: const TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                color: Colors.black87,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 12),
-          Text(
-            description,
-            style: const TextStyle(
-              fontSize: 16,
-              color: Colors.black54,
-              height: 1.5,
+            const SizedBox(height: 12),
+            Text(
+              description,
+              style: const TextStyle(
+                fontSize: 16,
+                color: Colors.black54,
+                height: 1.5,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
-        ],
+            const SizedBox(height: 10),
+          ],
+        ),
       ),
     );
   }

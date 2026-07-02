@@ -127,4 +127,10 @@ class AudioManager {
       playBgm();
     });
   }
+
+  Future<void> playTickVibration() async {
+    if (_isVibrationEnabled) {
+      Vibration.vibrate(duration: 30);
+    }
+  }
 }
