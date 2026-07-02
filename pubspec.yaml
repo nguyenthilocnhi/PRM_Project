@@ -67,6 +67,7 @@ flutter:
     - assets/data/levels.json
     - assets/audio/
     - assets/images/
+    - assets/images/clues/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images

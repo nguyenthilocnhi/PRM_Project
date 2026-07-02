@@ -51,6 +51,19 @@ class ClueCard extends StatelessWidget {
       ),
       child: Column(
         children: [
+          if (clue.imagePath != null) ...[
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                clue.imagePath!,
+                height: 60,
+                width: 60,
+                fit: BoxFit.cover,
+                errorBuilder: (context, error, stackTrace) => const SizedBox(height: 60, width: 60, child: Icon(Icons.image_not_supported)),
+              ),
+            ),
+            const SizedBox(height: 8),
+          ],
           Text(
             clue.clue,
             textAlign: TextAlign.center,
