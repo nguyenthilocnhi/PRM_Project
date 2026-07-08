@@ -170,7 +170,6 @@ class GameProvider extends ChangeNotifier {
     if (_allLevels.isEmpty) return;
 
     AudioManager().playBgm();
-    AudioManager().playLevelStartSound();
 
     _isLoading = true;
     _isLevelComplete = false;
