@@ -35,7 +35,8 @@ class _TutorialDialogState extends State<TutorialDialog> {
       insetPadding: const EdgeInsets.symmetric(horizontal: 20),
       child: Container(
         width: double.infinity,
-        height: 560,
+        height: MediaQuery.of(context).size.height * 0.75, // Responsive height
+        constraints: const BoxConstraints(maxHeight: 600, minHeight: 400),
         decoration: BoxDecoration(
           color: const Color(0xfffff8df),
           borderRadius: BorderRadius.circular(24),

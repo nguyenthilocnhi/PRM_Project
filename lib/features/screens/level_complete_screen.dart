@@ -55,105 +55,122 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
         body: Stack(
           children: [
             SafeArea(
-            child: Padding(
-              padding: const EdgeInsets.all(24.0),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Text(
-                    'LEVEL COMPLETE!',
-                    style: TextStyle(
-                      color: Color(0xff1e3c72),
-                      fontSize: 28,
-                      fontWeight: FontWeight.w900,
-                      letterSpacing: 2,
-                    ),
-                  ),
-                  const SizedBox(height: 60),
-                  
-                  // Quote Box
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(24),
-                      boxShadow: [
-                        BoxShadow(
-                          color: Colors.black.withValues(alpha: 0.2),
-                          blurRadius: 20,
-                          offset: const Offset(0, 10),
+              child: Center(
+                child: SingleChildScrollView(
+                  padding: const EdgeInsets.all(24.0),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text(
+                        'LEVEL COMPLETE!',
+                        style: TextStyle(
+                          color: Color(0xff1e3c72),
+                          fontSize: 28,
+                          fontWeight: FontWeight.w900,
+                          letterSpacing: 2,
                         ),
-                      ],
-                    ),
-                    child: Column(
-                      children: [
-                        const Icon(Icons.format_quote, size: 60, color: Color(0xff45b7f5)),
-                        const SizedBox(height: 16),
-                        Text(
-                          quote,
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 26,
+                      ),
+                      const SizedBox(height: 60),
+                      
+                      // Quote Box
+                      Container(
+                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 32),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(24),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withValues(alpha: 0.2),
+                              blurRadius: 20,
+                              offset: const Offset(0, 10),
+                            ),
+                          ],
+                        ),
+                        child: Column(
+                          children: [
+                            const Icon(Icons.format_quote, size: 60, color: Color(0xff45b7f5)),
+                            const SizedBox(height: 16),
+                            Text(
+                              quote,
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xff2d4b85),
+                                height: 1.4,
+                              ),
+                            ),
+                            const SizedBox(height: 24),
+                            Container(
+                              width: 50,
+                              height: 4,
+                              color: const Color(0xff45b7f5).withValues(alpha: 0.3),
+                            ),
+                            const SizedBox(height: 24),
+                            Text(
+                              '- $author -',
+                              textAlign: TextAlign.center,
+                              style: const TextStyle(
+                                fontSize: 18,
+                                fontWeight: FontWeight.w600,
+                                color: Colors.grey,
+                                fontStyle: FontStyle.italic,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      
+                      const SizedBox(height: 60),
+                      
+                      // Next Level Button
+                      ElevatedButton(
+                        onPressed: () {
+                          provider.nextLevel();
+                          Navigator.of(context).pushReplacement(
+                            MaterialPageRoute(builder: (_) => const GameScreen()),
+                          );
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white,
+                          foregroundColor: const Color(0xff45b7f5),
+                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                          minimumSize: const Size(double.infinity, 60),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          elevation: 8,
+                        ),
+                        child: const Text(
+                          'NEXT LEVEL',
+                          style: TextStyle(
+                            fontSize: 22,
+                            fontWeight: FontWeight.w900,
+                            letterSpacing: 1.5,
+                          ),
+                        ),
+                      ),
+                      const SizedBox(height: 16),
+                      // Back to Menu Button
+                      TextButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        child: const Text(
+                          'BACK TO MENU',
+                          style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 16,
                             fontWeight: FontWeight.bold,
-                            color: Color(0xff2d4b85),
-                            height: 1.4,
+                            letterSpacing: 1,
                           ),
                         ),
-                        const SizedBox(height: 24),
-                        Container(
-                          width: 50,
-                          height: 4,
-                          color: const Color(0xff45b7f5).withValues(alpha: 0.3),
-                        ),
-                        const SizedBox(height: 24),
-                        Text(
-                          '- $author -',
-                          textAlign: TextAlign.center,
-                          style: const TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: Colors.grey,
-                            fontStyle: FontStyle.italic,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                  
-                  const Spacer(),
-                  
-                  // Next Level Button
-                  ElevatedButton(
-                    onPressed: () {
-                      provider.nextLevel();
-                      Navigator.of(context).pushReplacement(
-                        MaterialPageRoute(builder: (_) => const GameScreen()),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.white,
-                      foregroundColor: const Color(0xff45b7f5),
-                      padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                      minimumSize: const Size(double.infinity, 60),
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(30),
                       ),
-                      elevation: 8,
-                    ),
-                    child: const Text(
-                      'NEXT LEVEL',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w900,
-                        letterSpacing: 1.5,
-                      ),
-                    ),
+                    ],
                   ),
-                  const SizedBox(height: 20),
-                ],
+                ),
               ),
             ),
-          ),
           
           // Confetti
           Align(
