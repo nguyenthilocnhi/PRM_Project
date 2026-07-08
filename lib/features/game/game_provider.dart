@@ -187,7 +187,7 @@ class GameProvider extends ChangeNotifier {
     _generateCipherMap(_currentLevel!);
     _userInputs = await _storageService.loadProgress(_currentLevel!.id);
     
-    _checkWinCondition();
+    _checkWinCondition(isInit: true);
     
     // Nếu màn này đã giải xong từ trước, xóa sạch để người chơi có thể chơi lại từ đầu
     if (_isLevelComplete) {
@@ -323,7 +323,7 @@ class GameProvider extends ChangeNotifier {
     }
   }
 
-  void _checkWinCondition() {
+  void _checkWinCondition({bool isInit = false}) {
     if (_currentLevel == null) return;
     
     final requiredLetters = <String>{};
@@ -363,15 +363,18 @@ class GameProvider extends ChangeNotifier {
 
     if (isWin && !_isLevelComplete) {
       _isLevelComplete = true;
-      if (_hintCount < 3) {
-        _hintCount++; // Increment hint count on win, max 3
-      }
-      _storageService.saveHints(_hintCount);
+      
+      if (!isInit) {
+        if (_hintCount < 3) {
+          _hintCount++; // Increment hint count on win, max 3
+        }
+        _storageService.saveHints(_hintCount);
 
-      AudioManager().playSuccessSound();
-      if (_currentLevel!.id >= _maxUnlockedLevel && _currentLevel!.id < _allLevels.length) {
-        _maxUnlockedLevel = _currentLevel!.id + 1;
-        _storageService.saveMaxUnlockedLevel(_maxUnlockedLevel);
+        AudioManager().playSuccessSound();
+        if (_currentLevel!.id >= _maxUnlockedLevel && _currentLevel!.id < _allLevels.length) {
+          _maxUnlockedLevel = _currentLevel!.id + 1;
+          _storageService.saveMaxUnlockedLevel(_maxUnlockedLevel);
+        }
       }
     }
   }
