@@ -12,6 +12,7 @@ class AudioManager {
   final AudioPlayer _tapPlayer = AudioPlayer();
   final AudioPlayer _successPlayer = AudioPlayer();
   final AudioPlayer _errorPlayer = AudioPlayer();
+  final AudioPlayer _startPlayer = AudioPlayer();
 
   bool _isMusicEnabled = true;
   bool _isSfxEnabled = true;
@@ -38,6 +39,7 @@ class AudioManager {
       await _tapPlayer.setAudioContext(audioContext);
       await _successPlayer.setAudioContext(audioContext);
       await _errorPlayer.setAudioContext(audioContext);
+      await _startPlayer.setAudioContext(audioContext);
 
       _bgmPlayer.setReleaseMode(ReleaseMode.loop);
       _bgmPlayer.setVolume(0.3); // Lower BGM volume so SFX can be heard
@@ -126,6 +128,13 @@ class AudioManager {
     Future.delayed(const Duration(milliseconds: 500), () {
       playBgm();
     });
+  }
+  
+  Future<void> playLevelStartSound() async {
+    if (_isSfxEnabled) {
+      await _startPlayer.stop();
+      await _startPlayer.play(AssetSource('audio/success.wav'));
+    }
   }
 
   Future<void> playTickVibration() async {
