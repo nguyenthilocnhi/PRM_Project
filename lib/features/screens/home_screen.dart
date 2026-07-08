@@ -90,6 +90,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       // App Title
                       const Text(
                         'CODE BUSTERS',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xff1e3c72),
                           fontSize: 40,
@@ -100,6 +101,7 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
                       const SizedBox(height: 8),
                       const Text(
                         'Cryptogram Puzzle',
+                        textAlign: TextAlign.center,
                         style: TextStyle(
                           color: Color(0xff2d4b85),
                           fontSize: 18,
@@ -172,37 +174,43 @@ class _HomeScreenState extends State<HomeScreen> with SingleTickerProviderStateM
         borderRadius: BorderRadius.circular(35),
       ),
       child: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            const Text(
-              'A',
-              style: TextStyle(
-                fontSize: 60,
-                fontWeight: FontWeight.w900,
-                color: Color(0xff1e3c72),
-                height: 1.0,
-              ),
+        child: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Text(
+                  'A',
+                  style: TextStyle(
+                    fontSize: 60,
+                    fontWeight: FontWeight.w900,
+                    color: Color(0xff1e3c72),
+                    height: 1.0,
+                  ),
+                ),
+                Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(top: 2, bottom: 2),
+                  decoration: BoxDecoration(
+                    color: const Color(0xff1e3c72),
+                    borderRadius: BorderRadius.circular(2),
+                  ),
+                ),
+                const Text(
+                  '1',
+                  style: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Color(0xff45b7f5),
+                    height: 1.0,
+                  ),
+                ),
+              ],
             ),
-            Container(
-              width: 40,
-              height: 4,
-              margin: const EdgeInsets.only(top: 2, bottom: 2),
-              decoration: BoxDecoration(
-                color: const Color(0xff1e3c72),
-                borderRadius: BorderRadius.circular(2),
-              ),
-            ),
-            const Text(
-              '1',
-              style: TextStyle(
-                fontSize: 22,
-                fontWeight: FontWeight.bold,
-                color: Color(0xff45b7f5),
-                height: 1.0,
-              ),
-            ),
-          ],
+          ),
         ),
       ),
     );
