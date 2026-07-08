@@ -12,37 +12,37 @@
         "clue": "A small pet?",
         "answer": "MOUSE",
         "isActive": true,
-        "imagePath": "assets/images/clues/clue_mouse.png"
+        "imagePath": "assets/images/clues/level_1/clue_mouse.png"
       },
       {
         "clue": "Opposite of night?",
         "answer": "DAY",
         "isActive": false,
-        "imagePath": "assets/images/clues/clue_day.png"
+        "imagePath": "assets/images/clues/level_1/clue_day.png"
       },
       {
         "clue": "Color of strawberries?",
         "answer": "RED",
         "isActive": false,
-        "imagePath": "assets/images/clues/clue_red.png"
+        "imagePath": "assets/images/clues/level_1/clue_red.png"
       },
       {
         "clue": "Worn on a foot?",
         "answer": "SHOE",
         "isActive": false,
-        "imagePath": "assets/images/clues/clue_shoe.png"
+        "imagePath": "assets/images/clues/level_1/clue_shoe.png"
       },
       {
         "clue": "Opposite of out?",
         "answer": "IN",
         "isActive": false,
-        "imagePath": "assets/images/clues/clue_in.png"
+        "imagePath": "assets/images/clues/level_1/clue_in.png"
       },
       {
         "clue": "Not false?",
         "answer": "TRUE",
         "isActive": false,
-        "imagePath": "assets/images/clues/clue_true.png"
+        "imagePath": "assets/images/clues/level_1/clue_true.png"
       }
     ],
     "usedLetters": [

@@ -67,7 +67,26 @@ flutter:
     - assets/data/levels.json
     - assets/audio/
     - assets/images/
-    - assets/images/clues/
+    - assets/images/clues/level_1/
+    - assets/images/clues/level_2/
+    - assets/images/clues/level_3/
+    - assets/images/clues/level_4/
+    - assets/images/clues/level_5/
+    - assets/images/clues/level_6/
+    - assets/images/clues/level_7/
+    - assets/images/clues/level_8/
+    - assets/images/clues/level_9/
+    - assets/images/clues/level_10/
+    - assets/images/clues/level_11/
+    - assets/images/clues/level_12/
+    - assets/images/clues/level_13/
+    - assets/images/clues/level_14/
+    - assets/images/clues/level_15/
+    - assets/images/clues/level_16/
+    - assets/images/clues/level_17/
+    - assets/images/clues/level_18/
+    - assets/images/clues/level_19/
+    - assets/images/clues/level_20/
 
   # An image asset can refer to one or more resolution-specific "variants", see
   # https://flutter.dev/to/resolution-aware-images
