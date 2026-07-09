@@ -323,22 +323,26 @@
       {
         "clue": "Opposite of wrong?",
         "answer": "RIGHT",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_5/clue_right.png"
       },
       {
         "clue": "Material you write on?",
         "answer": "PAPER",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_5/clue_paper.png"
       },
       {
         "clue": "Opposite of old?",
         "answer": "NEW",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_5/clue_new.png"
       },
       {
         "clue": "Animal that swims?",
         "answer": "FISH",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_5/clue_fish.png"
       }
     ],
     "usedLetters": [
@@ -385,27 +389,32 @@
       {
         "clue": "Person who drives a car?",
         "answer": "DRIVER",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_6/clue_driver.png"
       },
       {
         "clue": "Room where you sleep?",
         "answer": "BEDROOM",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_6/clue_bedroom.png"
       },
       {
         "clue": "Machine that lifts you between floors?",
         "answer": "ELEVATOR",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_6/clue_elevator.png"
       },
       {
         "clue": "Clothing worn around the neck?",
         "answer": "SCARF",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_6/clue_scarf.png"
       },
       {
         "clue": "Sandy shore by the ocean?",
         "answer": "BEACH",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_6/clue_beach.png"
       }
     ],
     "usedLetters": [
@@ -453,22 +462,26 @@
       {
         "clue": "Place to keep money safe?",
         "answer": "BANK",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_7/clue_bank.png"
       },
       {
         "clue": "Device used to take photos?",
         "answer": "CAMERA",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_7/clue_camera.png"
       },
       {
         "clue": "Person who flies an airplane?",
         "answer": "PILOT",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_7/clue_pilot.png"
       },
       {
         "clue": "Piece of cloth used to dry yourself?",
         "answer": "TOWEL",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_7/clue_towel.png"
       }
     ],
     "usedLetters": [
@@ -515,22 +528,26 @@
       {
         "clue": "Color of the clear sky?",
         "answer": "BLUE",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_8/clue_blue.png"
       },
       {
         "clue": "Sweet sticky food made by bees?",
         "answer": "HONEY",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_8/clue_honey.png"
       },
       {
         "clue": "Jewelry worn on a finger?",
         "answer": "RING",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_8/clue_ring.png"
       },
       {
         "clue": "A small piece of rock?",
         "answer": "STONE",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_8/clue_stone.png"
       }
     ],
     "usedLetters": [
