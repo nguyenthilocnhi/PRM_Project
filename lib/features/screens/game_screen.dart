@@ -52,7 +52,10 @@ class _GameScreenState extends State<GameScreen> {
 
   void _onKeyTap(String letter) {
     if (_selectedNumber != null) {
-      context.read<GameProvider>().inputLetter(_selectedNumber!, letter);
+      bool success = context.read<GameProvider>().inputLetter(_selectedNumber!, letter);
+      if (success) {
+        _onRightArrow();
+      }
     }
   }
 

@@ -226,14 +226,15 @@ class GameProvider extends ChangeNotifier {
     }
   }
 
-  void inputLetter(int number, String letter) {
-    if (_currentLevel == null || _isLevelComplete || _isGameOver) return;
+  bool inputLetter(int number, String letter) {
+    if (_currentLevel == null || _isLevelComplete || _isGameOver) return false;
     
     // Ignore if cell is already correctly filled
-    if (_userInputs.containsKey(number)) return;
+    if (_userInputs.containsKey(number)) return false;
 
     if (letter.isEmpty) {
       _userInputs.remove(number);
+      return false;
     } else {
       String upperLetter = letter.toUpperCase();
       
@@ -253,7 +254,7 @@ class GameProvider extends ChangeNotifier {
           _isGameOver = true;
         }
         notifyListeners();
-        return;
+        return false;
       }
 
       AudioManager().playTapSound();
@@ -263,6 +264,7 @@ class GameProvider extends ChangeNotifier {
     _storageService.saveProgress(_currentLevel!.id, _userInputs);
     _checkWinCondition();
     notifyListeners();
+    return true;
   }
 
   void deleteLetter(int number) {

@@ -89,32 +89,38 @@
       {
         "clue": "Farm animal that gives milk?",
         "answer": "COW",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_2/clue_cow.png"
       },
       {
         "clue": "Piece of furniture for sleeping?",
         "answer": "BED",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_2/clue_bed.png"
       },
       {
         "clue": "Farm animal with a curly tail?",
         "answer": "PIG",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_2/clue_pig.png"
       },
       {
         "clue": "Used to write with ink?",
         "answer": "PEN",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_2/clue_pen.png"
       },
       {
         "clue": "Opposite of young?",
         "answer": "OLD",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_2/clue_old.png"
       },
       {
         "clue": "Water falling from the sky?",
         "answer": "RAIN",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_2/clue_rain.png"
       }
     ],
     "usedLetters": [
@@ -161,32 +167,38 @@
       {
         "clue": "Plural form of mouse?",
         "answer": "MICE",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_3/clue_mice.png"
       },
       {
         "clue": "Color of a lemon?",
         "answer": "YELLOW",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_3/clue_yellow.png"
       },
       {
         "clue": "Opposite of slow?",
         "answer": "FAST",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_3/clue_fast.png"
       },
       {
         "clue": "Sweet baked dessert?",
         "answer": "CAKE",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_3/clue_cake.png"
       },
       {
         "clue": "Opposite of bad?",
         "answer": "GOOD",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_3/clue_good.png"
       },
       {
         "clue": "A young dog?",
         "answer": "PUPPY",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_3/clue_puppy.png"
       }
     ],
     "usedLetters": [
@@ -233,27 +245,32 @@
       {
         "clue": "A male child?",
         "answer": "BOY",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_4/clue_boy.png"
       },
       {
         "clue": "Coldest season of the year?",
         "answer": "WINTER",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_4/clue_winter.png"
       },
       {
         "clue": "Something you read?",
         "answer": "BOOK",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_4/clue_book.png"
       },
       {
         "clue": "Used for walking?",
         "answer": "LEGS",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_4/clue_legs.png"
       },
       {
         "clue": "Opposite of hot?",
         "answer": "COLD",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_4/clue_cold.png"
       }
     ],
     "usedLetters": [
@@ -300,7 +317,8 @@
       {
         "clue": "Color of the night sky?",
         "answer": "BLACK",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_5/clue_black.png"
       },
       {
         "clue": "Opposite of wrong?",
