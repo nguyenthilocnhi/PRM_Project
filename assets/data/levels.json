@@ -594,22 +594,26 @@
       {
         "clue": "Eight-legged animal that makes webs?",
         "answer": "SPIDER",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_9/clue_spider.png"
       },
       {
         "clue": "Meal eaten in the morning?",
         "answer": "BREAKFAST",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_9/clue_breakfast.png"
       },
       {
         "clue": "Musical instrument with strings?",
         "answer": "GUITAR",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_9/clue_guitar.png"
       },
       {
         "clue": "Very small social insect?",
         "answer": "ANT",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_9/clue_ant.png"
       }
     ],
     "usedLetters": [
@@ -656,22 +660,26 @@
       {
         "clue": "Worn on hands to keep them warm?",
         "answer": "GLOVES",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_10/clue_gloves.png"
       },
       {
         "clue": "Jumping animal from Australia?",
         "answer": "KANGAROO",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_10/clue_kangaroo.png"
       },
       {
         "clue": "Ornamental headwear for a king?",
         "answer": "CROWN",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_10/clue_crown.png"
       },
       {
         "clue": "Glass surface that reflects your image?",
         "answer": "MIRROR",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_10/clue_mirror.png"
       }
     ],
     "usedLetters": [
@@ -719,17 +727,20 @@
       {
         "clue": "Sport played with a bat and ball?",
         "answer": "BASEBALL",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_11/clue_baseball.png"
       },
       {
         "clue": "Scientific study of matter and energy?",
         "answer": "PHYSICS",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_11/clue_physics.png"
       },
       {
         "clue": "Doctor who cares for your teeth?",
         "answer": "DENTIST",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_11/clue_dentist.png"
       }
     ],
     "usedLetters": [
@@ -777,17 +788,20 @@
       {
         "clue": "Electronic device with a screen?",
         "answer": "COMPUTER",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_12/clue_computer.png"
       },
       {
         "clue": "Scientific study of living organisms?",
         "answer": "BIOLOGY",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_12/clue_biology.png"
       },
       {
         "clue": "Gas we breathe to stay alive?",
         "answer": "OXYGEN",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_12/clue_oxygen.png"
       }
     ],
     "usedLetters": [
@@ -835,12 +849,14 @@
       {
         "clue": "Long distance running race?",
         "answer": "MARATHON",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_13/clue_marathon.png"
       },
       {
         "clue": "Emergency medical vehicle?",
         "answer": "AMBULANCE",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_13/clue_ambulance.png"
       },
       {
         "clue": "Large floating mass of ice in the sea?",
