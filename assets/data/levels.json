@@ -861,7 +861,8 @@
       {
         "clue": "Large floating mass of ice in the sea?",
         "answer": "ICEBERG",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_13/clue_iceberg.png"
       }
     ],
     "usedLetters": [
@@ -910,17 +911,20 @@
       {
         "clue": "Severe storm with strong winds and snow?",
         "answer": "BLIZZARD",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_14/clue_blizzard.png"
       },
       {
         "clue": "Machine that puts text on paper?",
         "answer": "PRINTER",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_14/clue_printer.png"
       },
       {
         "clue": "Instrument for looking at distant stars?",
         "answer": "TELESCOPE",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_14/clue_telescope.png"
       }
     ],
     "usedLetters": [
@@ -968,17 +972,20 @@
       {
         "clue": "Force that pulls objects to the ground?",
         "answer": "GRAVITY",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_15/clue_gravity.png"
       },
       {
         "clue": "Sudden violent shaking of the ground?",
         "answer": "EARTHQUAKE",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_15/clue_earthquake.png"
       },
       {
         "clue": "Internal framework of bones?",
         "answer": "SKELETON",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_15/clue_skeleton.png"
       }
     ],
     "usedLetters": [
@@ -1025,12 +1032,14 @@
       {
         "clue": "Person who starts their own business?",
         "answer": "ENTREPRENEUR",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_16/clue_entrepreneur.png"
       },
       {
         "clue": "Money required to be paid to the government?",
         "answer": "TAXES",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_16/clue_taxes.png"
       }
     ],
     "usedLetters": [
@@ -1078,12 +1087,14 @@
       {
         "clue": "Official right granted to an inventor?",
         "answer": "PATENT",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_17/clue_patent.png"
       },
       {
         "clue": "Action of coming to live permanently in a foreign country?",
         "answer": "IMMIGRATION",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_17/clue_immigration.png"
       }
     ],
     "usedLetters": [
@@ -1131,12 +1142,14 @@
       {
         "clue": "Partial or total loss of memory?",
         "answer": "AMNESIA",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_18/clue_amnesia.png"
       },
       {
         "clue": "Action of leading a group of people?",
         "answer": "LEADERSHIP",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_18/clue_leadership.png"
       }
     ],
     "usedLetters": [
@@ -1185,12 +1198,14 @@
       {
         "clue": "Forecast of what will happen in the future?",
         "answer": "PREDICTION",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_19/clue_prediction.png"
       },
       {
         "clue": "Scientific study of the human mind and its functions?",
         "answer": "PSYCHOLOGY",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_19/clue_psychology.png"
       }
     ],
     "usedLetters": [
@@ -1238,12 +1253,14 @@
       {
         "clue": "Sudden event that causes great damage or loss of life?",
         "answer": "DISASTER",
-        "isActive": true
+        "isActive": true,
+        "imagePath": "assets/images/clues/level_20/clue_disaster.png"
       },
       {
         "clue": "Voluntary giving of help to those in need?",
         "answer": "CHARITY",
-        "isActive": false
+        "isActive": false,
+        "imagePath": "assets/images/clues/level_20/clue_charity.png"
       }
     ],
     "usedLetters": [
