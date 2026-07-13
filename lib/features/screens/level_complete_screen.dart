@@ -124,33 +124,35 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                       const SizedBox(height: 60),
                       
                       // Next Level Button
-                      ElevatedButton(
-                        onPressed: () {
-                          provider.nextLevel();
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(builder: (_) => const GameScreen()),
-                          );
-                        },
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.white,
-                          foregroundColor: const Color(0xff45b7f5),
-                          padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
-                          minimumSize: const Size(double.infinity, 60),
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(30),
+                      if (level.id < provider.allLevels.length)
+                        ElevatedButton(
+                          onPressed: () {
+                            provider.nextLevel();
+                            Navigator.of(context).pushReplacement(
+                              MaterialPageRoute(builder: (_) => const GameScreen()),
+                            );
+                          },
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.white,
+                            foregroundColor: const Color(0xff45b7f5),
+                            padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 20),
+                            minimumSize: const Size(double.infinity, 60),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            elevation: 8,
                           ),
-                          elevation: 8,
-                        ),
-                        child: const Text(
-                          'NEXT LEVEL',
-                          style: TextStyle(
-                            fontSize: 22,
-                            fontWeight: FontWeight.w900,
-                            letterSpacing: 1.5,
+                          child: const Text(
+                            'NEXT LEVEL',
+                            style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w900,
+                              letterSpacing: 1.5,
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 16),
+                      if (level.id < provider.allLevels.length)
+                        const SizedBox(height: 16),
                       // Back to Menu Button
                       TextButton(
                         onPressed: () {
