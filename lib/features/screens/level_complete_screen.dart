@@ -159,7 +159,7 @@ class _LevelCompleteScreenState extends State<LevelCompleteScreen> {
                         child: const Text(
                           'BACK TO MENU',
                           style: TextStyle(
-                            color: Colors.white,
+                            color: Color(0xff1e3c72),
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 1,
